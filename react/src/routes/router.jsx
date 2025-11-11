@@ -3,11 +3,14 @@ import Landing from "../modules/landing/Landing";
 import SignUp from "../modules/signup/SignUp";
 import SignIn from "../modules/signin/SignIn";
 import Home from "../modules/home/Home";
+import NotFoundPage from "../modules/404/NotFound";
+import Protected from "./protected";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Landing />
+    element: <Landing />,
+    errorElement: <NotFoundPage />
   },
   {
     path: "/signup",
@@ -19,7 +22,13 @@ const router = createBrowserRouter([
   },
   {
     path: "/home",
-    element: <Home />
+    element: <Protected />,
+    children: [
+      {
+        index: true,
+        element: <Home />
+      }
+    ]
   }
 ]);
 

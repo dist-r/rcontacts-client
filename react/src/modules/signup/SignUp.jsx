@@ -3,7 +3,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { Link } from 'react-router';
 
 function SignUp() {
-  const { register, isRegistering } = useAuth();
+  const { register, isRegistering , registerError, isRegisteringError} = useAuth();
 
   const handleSignUp = ({ username, name, email, password }) => {
     register({ username, name, email, password });
@@ -19,6 +19,9 @@ function SignUp() {
             Sign in
           </Link>
         </p>
+        {registerError && (
+          <p className="text-center text-sm text-red-600">{registerError.message}</p>
+        )}
       </div>
     </div>
   );

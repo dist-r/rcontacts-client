@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { getContacts, createContact, updateContact, deleteContact } from "./contact";
+import { getContacts, createContact, updateContact, deleteContact } from "../service/contact";
+
 
 export function useContacts() {
   const queryClient = useQueryClient();
@@ -7,6 +8,7 @@ export function useContacts() {
   const { data: contacts, isLoading: isLoadingContacts } = useQuery({
     queryKey: ["contacts"],
     queryFn: getContacts,
+    retry: false,
   });
 
   const { mutate: addContact, isPending: isAddingContact } = useMutation({

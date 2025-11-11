@@ -5,33 +5,36 @@ import { useNavigate } from "react-router";
 export function useAuth() {
   const navigate = useNavigate();
 
-  const { mutate: login, isPending: isLoggingIn } = useMutation({
+  const {
+    mutate: login,
+    isPending: isLoggingIn,
+    error: loginError,
+  } = useMutation({
     mutationFn: ({ email, password }) => loginService(email, password),
     onSuccess: (data) => {
-      // Annahme: Das Token wird im Local Storage gespeichert
       localStorage.setItem("token", data.token);
       navigate("/home");
     },
-    onError: (err) => {
-      console.error(err);
-      // Hier könnten Sie eine Benachrichtigung anzeigen
-    },
   });
 
-  const { mutate: register, isPending: isRegistering } = useMutation({
-    mutationFn: ({ username, name, email, password }) => registerService(username, name, email, password),
+  const {
+    mutate: register,
+    isPending: isRegistering,
+    error: registerError,
+  } = useMutation({
+    mutationFn: ({ username, name, email, password }) =>
+      registerService(username, name, email, password),
     onSuccess: () => {
       navigate("/signin");
     },
-    onError: (err) => {
-      console.error(err);
-    },
   });
 
-  const logout = () => {
-    localStorage.removeItem("token");
-    navigate("/signin");
+  return {
+    login,
+    isLoggingIn,
+    loginError,
+    register,
+    isRegistering,
+    registerError,
   };
-
-  return { login, isLoggingIn, register, isRegistering, logout };
 }

@@ -1,10 +1,14 @@
-import { useAuth } from "../../hooks/useAuth";
-import { useContacts } from "../../service/useContacts";
-import { useState } from "react";
-import { FaEdit, FaTrash, FaUserPlus } from "react-icons/fa";
+import { useContacts } from "../../hooks/useContacts";
+import { useEffect, useState } from "react";
+import { FaUserPlus } from "react-icons/fa";
+import ContactCard from "../../components/ContactCard";
+import ContactModal from "../../components/ContactModal";
+import { useUser } from "../../hooks/useUser";
+import { useNavigate } from "react-router";
 
 function Home() {
-  const { logout } = useAuth();
+  const { logout , error } = useUser();
+  const navigate = useNavigate();
   const {
     contacts,
     isLoadingContacts,
@@ -51,6 +55,13 @@ function Home() {
     }
     handleModalClose();
   };
+  
+  useEffect(()=> {
+    if(error){
+      localStorage.removeItem("token");
+      navigate("/signin");
+    }
+  })
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -59,7 +70,7 @@ function Home() {
           <h1 className="text-2xl font-bold text-gray-800">R-Contacts</h1>
           <button
             onClick={logout}
-            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
           >
             Logout
           </button>
@@ -87,27 +98,16 @@ function Home() {
         {isLoadingContacts ? (
           <p>Loading contacts...</p>
         ) : (
-          <div className="bg-white rounded-lg shadow-md p-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredContacts?.length > 0 ? (
-              <ul className="divide-y divide-gray-200">
-                {filteredContacts.map((contact) => (
-                  <li key={contact.id} className="py-4 flex justify-between items-center">
-                    <div>
-                      <p className="text-lg font-semibold">{contact.name}</p>
-                      <p className="text-gray-600">{contact.email}</p>
-                      <p className="text-gray-600">{contact.phone}</p>
-                    </div>
-                    <div className="flex gap-4">
-                      <button onClick={() => handleEditClick(contact)} className="text-blue-500 hover:text-blue-700">
-                        <FaEdit size={20} />
-                      </button>
-                      <button onClick={() => handleDeleteClick(contact.id)} className="text-red-500 hover:text-red-700">
-                        <FaTrash size={20} />
-                      </button>
-                    </div>
-                  </li>
-                ))}
-              </ul>
+              filteredContacts.map((contact) => (
+                <ContactCard
+                  key={contact.id}
+                  contact={contact}
+                  onEdit={() => handleEditClick(contact)}
+                  onDelete={() => handleDeleteClick(contact.id)}
+                />
+              ))
             ) : (
               <p>No contacts found.</p>
             )}
@@ -123,76 +123,6 @@ function Home() {
           isSaving={isAddingContact || isEditingContact}
         />
       )}
-    </div>
-  );
-}
-
-function ContactModal({ contact, onClose, onSave, isSaving }) {
-  const [formData, setFormData] = useState({
-    name: contact?.name || "",
-    email: contact?.email || "",
-    phone: contact?.phone || "",
-  });
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSave(formData);
-  };
-
-  return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-      <div className="bg-white p-8 rounded-lg shadow-xl w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-6">{contact ? "Edit Contact" : "Add New Contact"}</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">Name</label>
-            <input
-              type="text"
-              name="name"
-              id="name"
-              value={formData.name}
-              onChange={handleChange}
-              className="w-full p-2 border rounded-md"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">Email</label>
-            <input
-              type="email"
-              name="email"
-              id="email"
-              value={formData.email}
-              onChange={handleChange}
-              className="w-full p-2 border rounded-md"
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="phone">Phone</label>
-            <input
-              type="text"
-              name="phone"
-              id="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              className="w-full p-2 border rounded-md"
-              required
-            />
-          </div>
-          <div className="flex justify-end gap-4">
-            <button type="button" onClick={onClose} className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
-              Cancel
-            </button>
-            <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" disabled={isSaving}>
-              {isSaving ? "Saving..." : "Save"}
-            </button>
-          </div>
-        </form>
-      </div>
     </div>
   );
 }
