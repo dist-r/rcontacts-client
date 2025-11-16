@@ -53,7 +53,18 @@ This is the first implementation of the R-Contacts client, built with React and 
 
 ## Vue Implementation
 
-> Coming Soon!
+1.  Navigate to the `react` directory:
+    ```bash
+    cd vue
+    ```
+2.  Install the dependencies:
+    ```bash
+    npm install
+    ```
+3.  Start the development server:
+    ```bash
+    npm run dev
+    ```
 
 ---
 
