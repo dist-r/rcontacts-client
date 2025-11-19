@@ -9,7 +9,6 @@ function Protected() {
     if (!token) navigate("/signin");
   }, [token, navigate]);
 
-  // Bisa tambahkan loader di sini kalau mau
   return <Outlet />;
 }
 

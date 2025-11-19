@@ -35,3 +35,7 @@
   --depth: 0;
   --noise: 0;
 } */
+
+button {
+  cursor: pointer;
+}
