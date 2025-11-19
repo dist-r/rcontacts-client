@@ -1,17 +1,18 @@
 import axiosInstance from "../api/axiosInstance";
 
-export const createContact = async(username, name, email, phone) => {
+export const createContact = async (name , email, phone) => {
   try {
     const response = await axiosInstance.post('/contacts', {
-      username,
       name,
       email,
       phone
-    }, {
+    },
+    {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-    });
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    }
+  );
     return response.data;
   } catch (error) {
     if (error.response) {
@@ -22,12 +23,12 @@ export const createContact = async(username, name, email, phone) => {
   }
 }
 
-export const getContacts = async() => {
+export const getContacts = async () => {
   try {
     const response = await axiosInstance.get('/contacts', {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
     });
     return response.data;
   } catch (error) {
@@ -39,12 +40,12 @@ export const getContacts = async() => {
   }
 }
 
-export const deleteContact = async(contactId) => {
+export const deleteContact = async (contactId) => {
   try {
     const response = await axiosInstance.delete(`/contacts/${contactId}`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
     });
     return response.data;
   } catch (error) {
@@ -56,13 +57,19 @@ export const deleteContact = async(contactId) => {
   }
 }
 
-export const updateContact = async(contactId, updates) => {
+export const updateContact = async (contactId, name, email, phone) => {
   try {
-    const response = await axiosInstance.patch(`/contacts/${contactId}`, updates, {
+    const response = await axiosInstance.put(`/contacts/${contactId}`, {
+      name,
+      email,
+      phone
+    },
+    {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-    });
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    }
+  );
     return response.data;
   } catch (error) {
     if (error.response) {

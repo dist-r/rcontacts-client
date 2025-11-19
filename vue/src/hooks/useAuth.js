@@ -1,5 +1,5 @@
 import { useRouter } from "vue-router";
-import { login, register } from "../../../react/src/service/auth";
+import { login, register } from "../service/auth.service";
 import { useMutation } from '@tanstack/vue-query'
 
 export function useAuth () {
@@ -19,6 +19,10 @@ export function useAuth () {
     },
   });
 
+  const logout = () => {
+    localStorage.removeItem("token");
+    router.push("/signin");
+  }
 
   return { 
       loginMutate,
@@ -26,6 +30,7 @@ export function useAuth () {
       loginError,
       registerMutate,
       isRegistering,
-      registerError
+      registerError,
+      logout
     };
 }
