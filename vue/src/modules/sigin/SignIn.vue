@@ -15,7 +15,6 @@ import router from '../../routes/router';
   watchEffect(()=>{
     const token = localStorage.getItem('token');
     if (token) {
-      // Jika sudah login, redirect ke halaman home
       router.push("/home");
     }
   })

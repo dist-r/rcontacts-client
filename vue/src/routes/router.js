@@ -3,6 +3,7 @@ import AuthLayout from "../layouts/AuthLayout.vue";
 import Landing from "../modules/landing/Landing.vue";
 import SignIn from "../modules/sigin/SignIn.vue";
 import SignUp from "../modules/signup/SignUp.vue";
+import NotFound from "../modules/404/NotFound.vue";
 
 import MainLayout from "../layouts/MainLayout.vue";
 import Home from "../modules/home/Home.vue";
@@ -11,6 +12,10 @@ const routes = [
   {
     path: "/",
     component: Landing
+  },
+  {
+    path: "/:catchAll(.*)",
+    component: NotFound
   },
   {
     path: "/signin",
