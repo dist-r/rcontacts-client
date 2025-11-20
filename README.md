@@ -2,6 +2,8 @@
 
 This project is the client-side implementation of the R-Contacts application. It is designed to be implemented using various frontend frameworks to showcase their differences and capabilities.
 
+The backend implementation is housed in a separate repository: https://github.com/dist-r/rcontacts-rest.
+
 <div align="center">
   <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React"/>
   <img src="https://img.shields.io/badge/Vue.js-4FC08D?style=for-the-badge&logo=vue.js&logoColor=white" alt="Vue.js"/>
@@ -33,19 +35,23 @@ This is the first implementation of the R-Contacts client, built with React and 
 ### React Screenshots Gallery
 
 <p align="center">
-    <img src="./assets/react/landing.png" alt="React Landing" width="280" />
-    <img src="./assets/react/signin.png" alt="React Sign In" width="280" />
-    <img src="./assets/react/signup.png" alt="React Sign Up" width="280" />
+    <img src="./assets/react/landing.png" alt="React Landing" width="360" />
+    <img src="./assets/react/signin.png" alt="React Sign In" width="360" />
 </p>
 <p align="center">
-    <img src="./assets/react/home.png" alt="React Home" width="280" />
-    <img src="./assets/react/feature.png" alt="React Feature" width="280" />
-    <img src="./assets/react/footer.png" alt="React Footer" width="280" />
+    <img src="./assets/react/signup.png" alt="React Sign Up" width="360" />
+    <img src="./assets/react/home.png" alt="React Home" width="360" />
 </p>
 <p align="center">
-    <img src="./assets/react/notfound.png" alt="React NotFound" width="280" />
-    <img src="./assets/react/editcontact.png" alt="React Edit Contact" width="280" />
-    <img src="./assets/react/deletecontact.png" alt="React Delete Contact" width="280" />
+    <img src="./assets/react/feature.png" alt="React Feature" width="360" />
+    <img src="./assets/react/footer.png" alt="React Footer" width="360" />
+</p>
+<p align="center">
+    <img src="./assets/react/notfound.png" alt="React NotFound" width="360" />
+    <img src="./assets/react/editcontact.png" alt="React Edit Contact" width="360" />
+</p>
+<p align="center">
+    <img src="./assets/react/deletecontact.png" alt="React Delete Contact" width="360" />
 </p>
 
 ### Getting Started
@@ -80,19 +86,24 @@ This is the first implementation of the R-Contacts client, built with React and 
 ### Vue Screenshots Gallery
 
 <p align="center">
-    <img src="./assets/vue/landing.png" alt="Vue Landing" width="280" />
-    <img src="./assets/vue/signin.png" alt="Vue Sign In" width="280" />
-    <img src="./assets/vue/signup.png" alt="Vue Sign Up" width="280" />
+    <img src="./assets/vue/landing.png" alt="Vue Landing" width="360" />
+    <img src="./assets/vue/signin.png" alt="Vue Sign In" width="360" />
 </p>
 <p align="center">
-    <img src="./assets/vue/home.png" alt="Vue Home" width="280" />
-    <img src="./assets/vue/feature.png" alt="Vue Feature" width="280" />
-    <img src="./assets/vue/footer.png" alt="Vue Footer" width="280" />
+    <img src="./assets/vue/signup.png" alt="Vue Sign Up" width="360" />
+    <img src="./assets/vue/home.png" alt="Vue Home" width="360" />
 </p>
 <p align="center">
-    <img src="./assets/vue/protected.png" alt="Vue Protected" width="280" />
-    <img src="./assets/vue/editcontact.png" alt="Vue Edit Contact" width="280" />
-    <img src="./assets/vue/addcontact.png" alt="Vue Add Contact" width="280" />
+    <img src="./assets/vue/feature.png" alt="Vue Feature" width="360" />
+    <img src="./assets/vue/footer.png" alt="Vue Footer" width="360" />
+</p>
+<p align="center">
+    <img src="./assets/vue/protected.png" alt="Vue Protected" width="360" />
+    <img src="./assets/vue/editcontact.png" alt="Vue Edit Contact" width="360" />
+</p>
+<p align="center">
+    <img src="./assets/vue/addcontact.png" alt="Vue Add Contact" width="360" />
+    <img src="./assets/vue/notfound.png" alt="Vue NotFound" width="360" />
 </p>
 
 ### Getting Started (Vue)
@@ -118,6 +129,20 @@ This is the first implementation of the R-Contacts client, built with React and 
 
 Project scope:
 
-- This repository contains only the client implementations (React, Vue, and a planned Svelte version). The backend implementation is housed in a separate repository: `https://github.com/dist-r/rcontacts-rest`.
+- This repository contains only the client implementations (React, Vue, and a planned Svelte version). 
+This repository contains only the client implementations (React, Vue, and a planned Svelte version).
 
-If you want me to embed thumbnails in the README or reorder/add captions, tell me which images to preview and I'll insert them below the corresponding implementation sections.
+---
+
+## Contributing / Open Implementations
+
+Contributions are welcome. If you have an implementation for other frameworks (Next.js, Nuxt, Solid, Remix, Astro, etc.), please open a pull request.
+
+Quick contribution guidelines:
+
+- Add your implementation in a top-level folder named after the framework (e.g. `next`, `nuxt`, `solid`).
+- Add screenshots to `assets/<framework>/` and follow the naming convention used in this repo.
+- Update this README to add a short section describing your implementation and supporting libraries.
+- Open a PR with your changes and a brief explanation of what you implemented.
+
+If you'd like to discuss first, open an issue describing the intended implementation and any questions about API integration.
