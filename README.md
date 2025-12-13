@@ -8,6 +8,14 @@ The backend implementation is housed in a separate repository: https://github.co
   <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React"/>
   <img src="https://img.shields.io/badge/Vue.js-4FC08D?style=for-the-badge&logo=vue.js&logoColor=white" alt="Vue.js"/>
   <img src="https://img.shields.io/badge/Svelte-FF3E00?style=for-the-badge&logo=svelte&logoColor=white" alt="Svelte"/>
+  <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js"/>
+  <img src="https://img.shields.io/badge/Nuxt.js-00DC82?style=for-the-badge&logo=nuxt.js&logoColor=white" alt="Nuxt.js"/>
+  <img src="https://img.shields.io/badge/SvelteKit-FF3E00?style=for-the-badge&logo=svelte&logoColor=white" alt="SvelteKit"/>
+  <img src="https://img.shields.io/badge/Solid.js-2C4F7C?style=for-the-badge&logo=solid&logoColor=white" alt="Solid.js"/>
+  <img src="https://img.shields.io/badge/Preact-673AB8?style=for-the-badge&logo=preact&logoColor=white" alt="Preact"/>
+  <img src="https://img.shields.io/badge/Astro-FF5D01?style=for-the-badge&logo=astro&logoColor=white" alt="Astro"/>
+  <img src="https://img.shields.io/badge/Remix-000000?style=for-the-badge&logo=remix&logoColor=white" alt="Remix"/>
+  <img src="https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white" alt="Angular"/>
 </div>
 
 ## Implementations
@@ -15,14 +23,16 @@ The backend implementation is housed in a separate repository: https://github.co
 This repository will contain the following implementations:
 
 -   [React Implementation](#react-implementation)
+-   [React TypeScript Implementation](#react-typescript-implementation)
 -   [Vue Implementation](#vue-implementation)
--   [Svelte Implementation](#svelte-implementation)
 
 ---
 
 ## React Implementation
 
 This is the first implementation of the R-Contacts client, built with React and Vite.
+
+**by Uzumaki Bayu**
 
 ### Supporting Libraries
 <div>
@@ -71,7 +81,74 @@ This is the first implementation of the R-Contacts client, built with React and 
 
 ---
 
+## React TypeScript Implementation
+
+This is the TypeScript implementation of the R-Contacts client, built with React, TypeScript, and Vite.
+
+**by Uzumaki Bayu**
+
+### Supporting Libraries
+<div>
+  <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite"/>
+  <img src="https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white" alt="React Router"/>
+  <img src="https://img.shields.io/badge/TanStack_Query-FF4154?style=for-the-badge&logo=tanstack&logoColor=white" alt="TanStack Query"/>
+  <img src="https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white" alt="Axios"/>
+  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS"/>
+  <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript"/>
+</div>
+
+### React TypeScript Screenshots Gallery
+
+<p align="center">
+    <img src="./assets/react-ts/landing-header.png" alt="React TS Landing Header" width="360" />
+    <img src="./assets/react-ts/landing-cta.png" alt="React TS Landing CTA" width="360" />
+</p>
+<p align="center">
+    <img src="./assets/react-ts/landing-footer.png" alt="React TS Landing Footer" width="360" />
+    <img src="./assets/react-ts/signi.png" alt="React TS Sign In" width="360" />
+</p>
+<p align="center">
+    <img src="./assets/react-ts/sigin-modal.png" alt="React TS Sign In Modal" width="360" />
+    <img src="./assets/react-ts/signin-error.png" alt="React TS Sign In Error" width="360" />
+</p>
+<p align="center">
+    <img src="./assets/react-ts/signin-warning.png" alt="React TS Sign In Warning" width="360" />
+    <img src="./assets/react-ts/signup-error.png" alt="React TS Sign Up Error" width="360" />
+</p>
+<p align="center">
+    <img src="./assets/react-ts/signup-warning.png" alt="React TS Sign Up Warning" width="360" />
+    <img src="./assets/react-ts/home.png" alt="React TS Home" width="360" />
+</p>
+<p align="center">
+    <img src="./assets/react-ts/add-modal.png" alt="React TS Add Modal" width="360" />
+    <img src="./assets/react-ts/edit-modal.png" alt="React TS Edit Modal" width="360" />
+</p>
+<p align="center">
+    <img src="./assets/react-ts/delete-modal.png" alt="React TS Delete Modal" width="360" />
+</p>
+
+### Getting Started
+
+1.  Navigate to the `react-ts` directory:
+    ```bash
+    cd react-ts
+    ```
+2.  Install the dependencies:
+    ```bash
+    npm install
+    ```
+3.  Start the development server:
+    ```bash
+    npm run dev
+    ```
+
+---
+
 ## Vue Implementation
+
+This is the Vue.js implementation of the R-Contacts client, built with Vue and Vite.
+
+**by Uzumaki Bayu**
 
 ### Supporting Libraries
 <div>
@@ -123,16 +200,7 @@ This is the first implementation of the R-Contacts client, built with React and 
 
 ---
 
-## Svelte Implementation
 
-> Coming Soon!
-
-Project scope:
-
-- This repository contains only the client implementations (React, Vue, and a planned Svelte version). 
-This repository contains only the client implementations (React, Vue, and a planned Svelte version).
-
----
 
 ## Contributing / Open Implementations
 
@@ -142,7 +210,7 @@ Quick contribution guidelines:
 
 - Add your implementation in a top-level folder named after the framework (e.g. `next`, `nuxt`, `solid`).
 - Add screenshots to `assets/<framework>/` and follow the naming convention used in this repo.
-- Update this README to add a short section describing your implementation and supporting libraries.
+- Update this README to add a short section describing your implementation and supporting libraries, including "**by [Your Name]**" to credit yourself.
 - Open a PR with your changes and a brief explanation of what you implemented.
 
 If you'd like to discuss first, open an issue describing the intended implementation and any questions about API integration.
