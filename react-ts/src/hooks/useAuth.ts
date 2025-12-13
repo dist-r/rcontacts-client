@@ -9,7 +9,7 @@ export function useAuth(){
     mutationFn: ({email, password}: {email: string, password: string}) => loginService(email, password),
     onSuccess: (data) => {
       localStorage.setItem("token", data.token);
-      navigate("/contacts");
+      navigate("/home");
     }
   });
 
@@ -21,12 +21,18 @@ export function useAuth(){
     }
   })
 
+  const logout = () => {
+    localStorage.removeItem("token");
+    navigate("/signin");
+  };
+
   return {
     login,
     isLoggingIn,
     loginError,
     register,
     isRegistering,
-    registerError
+    registerError,
+    logout
   }
 }
