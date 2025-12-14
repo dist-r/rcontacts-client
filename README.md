@@ -25,6 +25,7 @@ This repository will contain the following implementations:
 -   [React Implementation](#react-implementation)
 -   [React TypeScript Implementation](#react-typescript-implementation)
 -   [Vue Implementation](#vue-implementation)
+-   [Next.js Implementation](#nextjs-implementation)
 
 ---
 
@@ -200,9 +201,60 @@ This is the Vue.js implementation of the R-Contacts client, built with Vue and V
 
 ---
 
+## Next.js Implementation
 
+This is the Next.js implementation of the R-Contacts client, built with Next.js 16 App Router, Server Components, and Server Actions.
 
-## Contributing / Open Implementations
+**by Uzumaki Bayu**
+
+### Supporting Libraries
+<div>
+  <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js"/>
+  <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React"/>
+  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS"/>
+  <img src="https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white" alt="Axios"/>
+  <img src="https://img.shields.io/badge/React_Icons-000000?style=for-the-badge&logo=react&logoColor=white" alt="React Icons"/>
+</div>
+
+### Next.js Screenshots Gallery
+
+<p align="center">
+    <img src="./assets/next/landing-header.png" alt="Next.js Landing Header" width="360" />
+    <img src="./assets/next/landing-feture.png" alt="Next.js Landing Feature" width="360" />
+</p>
+<p align="center">
+    <img src="./assets/next/landing-footer.png" alt="Next.js Landing Footer" width="360" />
+    <img src="./assets/next/signin.png" alt="Next.js Sign In" width="360" />
+</p>
+<p align="center">
+    <img src="./assets/next/signup.png" alt="Next.js Sign Up" width="360" />
+    <img src="./assets/next/signup-modal.png" alt="Next.js Sign Up Modal" width="360" />
+</p>
+<p align="center">
+    <img src="./assets/next/home.png" alt="Next.js Home" width="360" />
+    <img src="./assets/next/home-add.png" alt="Next.js Home Add" width="360" />
+</p>
+<p align="center">
+    <img src="./assets/next/home-edit.png" alt="Next.js Home Edit" width="360" />
+    <img src="./assets/next/home-delete.png" alt="Next.js Home Delete" width="360" />
+</p>
+
+### Getting Started
+
+1.  Navigate to the `next` directory:
+    ```bash
+    cd next
+    ```
+2.  Install the dependencies:
+    ```bash
+    npm install
+    ```
+3.  Start the development server:
+    ```bash
+    npm run dev
+    ```
+
+---
 
 Contributions are welcome. If you have an implementation for other frameworks (Next.js, Nuxt, Solid, Remix, Astro, etc.), please open a pull request.
 
