@@ -12,7 +12,7 @@ export function useAuth() {
   } = useMutation({
     mutationFn: ({ email, password }) => loginService(email, password),
     onSuccess: (data) => {
-      localStorage.setItem("token", data.token);
+      localStorage.setItem("token", data.data.token);
       navigate("/home");
     },
   });
@@ -27,6 +27,9 @@ export function useAuth() {
     onSuccess: () => {
       navigate("/signin");
     },
+    onError: (error) => {
+      console.log(error.message);
+    }
   });
 
   return {
