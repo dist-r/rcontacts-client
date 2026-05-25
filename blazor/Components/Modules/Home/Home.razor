@@ -1,0 +1,161 @@
+@page "/home"
+@layout MainLayout
+@inject AuthState Auth
+@inject ContactState Contacts
+@inject IDialogService DialogService
+@inject ISnackbar Snackbar
+@implements IDisposable
+
+<PageTitle>My Contacts — RContacts</PageTitle>
+
+<!-- 
+  Ekuivalen Home.tsx di React-TS
+  State diambil dari injected Scoped services, bukan useState/useQuery
+-->
+
+@if (!Auth.IsAuthenticated)
+{
+    <!-- Ekuivalen: {popUpSignIn && <ModalSignIn />} di React -->
+    <ModalSignInRequired />
+}
+else
+{
+    <div class="home-wrapper">
+        <!-- Page Header — ekuivalen <div className="flex justify-between..."> di React -->
+        <div class="page-header">
+            <div class="page-header-left">
+                <h1 class="page-title">
+                    <MudIcon Icon="@Icons.Material.Filled.Contacts" Style="color: #a78bfa; margin-right: 12px; font-size: 36px;" />
+                    Your Contacts
+                </h1>
+                <p class="page-subtitle">
+                    @if (!Contacts.IsLoading)
+                    {
+                        <span>@Contacts.Contacts.Count contact@(Contacts.Contacts.Count != 1 ? "s" : "") found</span>
+                    }
+                </p>
+            </div>
+            <div class="page-header-actions">
+                <!-- Add Contact Button — ekuivalen <button onClick={() => setOpenModalAddContact(true)}> -->
+                <MudButton Variant="Variant.Filled"
+                           StartIcon="@Icons.Material.Filled.PersonAdd"
+                           OnClick="OpenAddDialog"
+                           Style="background: linear-gradient(135deg, #7c3aed, #4f46e5); color: white; border-radius: 12px; font-weight: 600;">
+                    Add Contact
+                </MudButton>
+                <!-- Logout Button — ekuivalen <button onClick={logout}> -->
+                <MudButton Variant="Variant.Outlined"
+                           StartIcon="@Icons.Material.Filled.Logout"
+                           OnClick="HandleLogout"
+                           Style="border-color: rgba(239,68,68,0.4); color: #ef4444; border-radius: 12px;">
+                    Logout
+                </MudButton>
+            </div>
+        </div>
+
+        <!-- Error Alert -->
+        @if (Contacts.Error is not null)
+        {
+            <MudAlert Severity="Severity.Error" Class="mb-4">@Contacts.Error</MudAlert>
+        }
+
+        <!-- Loading State, Empty State, and Contacts Grid -->
+        @if (Contacts.IsLoading)
+        {
+            <div class="loading-state">
+                <MudProgressCircular Indeterminate="true" Size="Size.Large" Style="color: #a78bfa;" />
+                <p class="loading-text">Loading your contacts...</p>
+            </div>
+        }
+        else if (Contacts.Contacts.Count == 0)
+        {
+            <div class="empty-state">
+                <MudIcon Icon="@Icons.Material.Filled.ContactPage" Style="font-size: 72px; color: rgba(139,92,246,0.3);" />
+                <h3 class="empty-title">No contacts yet</h3>
+                <p class="empty-desc">Start building your network by adding your first contact</p>
+                <MudButton Variant="Variant.Filled"
+                           StartIcon="@Icons.Material.Filled.PersonAdd"
+                           OnClick="OpenAddDialog"
+                           Style="background: linear-gradient(135deg, #7c3aed, #4f46e5); color: white; border-radius: 50px; margin-top: 16px;">
+                    Add First Contact
+                </MudButton>
+            </div>
+        }
+        else
+        {
+            <div class="contacts-grid">
+                @foreach (var contact in Contacts.Contacts)
+                {
+                    <!-- Ekuivalen: ContactCard component di parts/ -->
+                    <ContactCard Contact="contact"
+                                 OnEdit="OpenEditDialog"
+                                 OnDelete="OpenDeleteDialog" />
+                }
+            </div>
+        }
+
+        <!-- Dialogs — ekuivalen conditional renders di React -->
+        <ModalAddContact @ref="_addModal" />
+        <ModalEditContact @ref="_editModal" />
+        <ModalDeleteContact @ref="_deleteModal" />
+    </div>
+}
+
+@code {
+    // Refs ke modal components — ekuivalen state variables di React
+    private ModalAddContact? _addModal;
+    private ModalEditContact? _editModal;
+    private ModalDeleteContact? _deleteModal;
+
+    protected override void OnInitialized()
+    {
+        // Subscribe ke state changes — ekuivalen useEffect untuk re-render
+        Auth.OnChange += StateHasChanged;
+        Contacts.OnChange += StateHasChanged;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // Cek auth saat mount — ekuivalen useEffect(() => { checkToken(); }, [])
+            await Auth.CheckAuth();
+
+            if (Auth.IsAuthenticated)
+            {
+                // Load kontak — ekuivalen useQuery yang auto-fetch saat component mount
+                await Contacts.LoadContacts();
+            }
+        }
+    }
+
+    // Buka dialog Add — ekuivalen: setOpenModalAddContact(true)
+    private void OpenAddDialog()
+    {
+        _addModal?.Open();
+    }
+
+    // Buka dialog Edit — ekuivalen: setOpenModalEditContact(contact)
+    private void OpenEditDialog(Contact contact)
+    {
+        _editModal?.Open(contact);
+    }
+
+    // Buka dialog Delete — ekuivalen: setOpenModalDeleteContact(contact)
+    private void OpenDeleteDialog(Contact contact)
+    {
+        _deleteModal?.Open(contact);
+    }
+
+    // Logout — ekuivalen: const { logout } = useAuth(); onClick={logout}
+    private async Task HandleLogout()
+    {
+        await Auth.Logout();
+    }
+
+    public void Dispose()
+    {
+        Auth.OnChange -= StateHasChanged;
+        Contacts.OnChange -= StateHasChanged;
+    }
+}

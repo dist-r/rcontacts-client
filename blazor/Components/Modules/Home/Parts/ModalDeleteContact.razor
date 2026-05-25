@@ -1,0 +1,119 @@
+@inject ContactState Contacts
+@inject ISnackbar Snackbar
+
+<!--
+  ModalDeleteContact.razor
+  Ekuivalen: ModalDeleteContact.tsx di React-TS
+  Menampilkan data kontak + konfirmasi hapus
+-->
+
+<MudDialog @bind-Visible="_isOpen" Options="_dialogOptions">
+    <TitleContent>
+        <div class="dialog-title-content" style="color: #ef4444;">
+            <MudIcon Icon="@Icons.Material.Filled.DeleteForever" Style="color: #ef4444; margin-right: 8px;" />
+            <span>Delete Contact</span>
+        </div>
+    </TitleContent>
+    <DialogContent>
+        <div style="text-align: center; padding: 8px 0;">
+            <!-- Warning icon — ekuivalen <FaExclamationTriangle> di React -->
+            <MudIcon Icon="@Icons.Material.Filled.Warning"
+                     Style="font-size: 56px; color: #f59e0b; margin-bottom: 16px;" />
+
+            <p style="color: rgba(255,255,255,0.8); margin-bottom: 16px; font-size: 15px;">
+                Are you sure you want to delete this contact?<br />
+                <strong style="color: #ef4444;">This action cannot be undone.</strong>
+            </p>
+
+            <!-- Contact preview — ekuivalen div.bg-gray-100 di React -->
+            <div class="delete-contact-preview">
+                <div class="preview-row">
+                    <MudIcon Icon="@Icons.Material.Filled.Person" Style="font-size: 16px; color: #a78bfa; margin-right: 8px;" />
+                    <span><strong>@_contactName</strong></span>
+                </div>
+                <div class="preview-row">
+                    <MudIcon Icon="@Icons.Material.Filled.Email" Style="font-size: 16px; color: #06b6d4; margin-right: 8px;" />
+                    <span>@_contactEmail</span>
+                </div>
+                <div class="preview-row">
+                    <MudIcon Icon="@Icons.Material.Filled.Phone" Style="font-size: 16px; color: #10b981; margin-right: 8px;" />
+                    <span>@_contactPhone</span>
+                </div>
+            </div>
+
+            @if (Contacts.RemoveError is not null)
+            {
+                <MudAlert Severity="Severity.Error" Dense="true" Class="mt-3">@Contacts.RemoveError</MudAlert>
+            }
+        </div>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Variant="Variant.Outlined"
+                   OnClick="Close"
+                   Style="border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.6); border-radius: 10px;">
+            Cancel
+        </MudButton>
+        <!-- Delete Button — ekuivalen <button onClick={handleDelete} disabled={isRemoving}> -->
+        <MudButton Variant="Variant.Filled"
+                   OnClick="HandleDelete"
+                   Disabled="Contacts.IsRemoving"
+                   StartIcon="@Icons.Material.Filled.Delete"
+                   Style="background: #dc2626; color: white; border-radius: 10px;">
+            @if (Contacts.IsRemoving)
+            {
+                <MudProgressCircular Size="Size.Small" Indeterminate="true" Style="color: white; margin-right: 6px;" />
+                <span>Deleting...</span>
+            }
+            else
+            {
+                <span>Confirm Delete</span>
+            }
+        </MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    private bool _isOpen = false;
+    private string _contactId = string.Empty;
+    private string _contactName = string.Empty;
+    private string _contactEmail = string.Empty;
+    private string _contactPhone = string.Empty;
+
+    private DialogOptions _dialogOptions = new()
+    {
+        CloseOnEscapeKey = true,
+        MaxWidth = MaxWidth.ExtraSmall,
+        FullWidth = true,
+        BackdropClick = false
+    };
+
+    // Dipanggil dari Home.razor: _deleteModal?.Open(contact)
+    // Ekuivalen: setOpenModalDeleteContact(contact) di React
+    public void Open(Contact contact)
+    {
+        _contactId = contact.Id;
+        _contactName = contact.Name;
+        _contactEmail = contact.Email;
+        _contactPhone = contact.Phone;
+        Contacts.ClearErrors();
+        _isOpen = true;
+        StateHasChanged();
+    }
+
+    private void Close()
+    {
+        _isOpen = false;
+    }
+
+    // Ekuivalen: const handleDelete = () => { removeContact(id); onClose(); }
+    private async Task HandleDelete()
+    {
+        await Contacts.RemoveContact(_contactId);
+
+        if (Contacts.RemoveError is null)
+        {
+            Snackbar.Add("Contact deleted successfully!", Severity.Success);
+            Close();
+        }
+    }
+}

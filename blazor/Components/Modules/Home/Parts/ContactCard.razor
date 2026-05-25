@@ -1,0 +1,54 @@
+@inject ContactState Contacts
+@inject ISnackbar Snackbar
+
+<!--
+  ContactCard.razor — sub-komponen card kontak
+  Ekuivalen: map item di React Home.tsx
+  <div key={contact.id} className="bg-gray-800 p-6 rounded-lg...">
+-->
+
+<div class="contact-card @(_isHovered ? "contact-card-hovered" : "")"
+     @onmouseenter="() => _isHovered = true"
+     @onmouseleave="() => _isHovered = false">
+
+    <!-- Avatar -->
+    <div class="contact-avatar">
+        <span class="avatar-letter">@Contact.Name.ToUpper().FirstOrDefault()</span>
+    </div>
+
+    <!-- Info -->
+    <div class="contact-info">
+        <h3 class="contact-name">@Contact.Name</h3>
+        <div class="contact-detail">
+            <MudIcon Icon="@Icons.Material.Filled.Email" Style="font-size: 14px; color: #a78bfa; margin-right: 6px; flex-shrink: 0;" />
+            <span class="contact-detail-text">@Contact.Email</span>
+        </div>
+        <div class="contact-detail">
+            <MudIcon Icon="@Icons.Material.Filled.Phone" Style="font-size: 14px; color: #06b6d4; margin-right: 6px; flex-shrink: 0;" />
+            <span class="contact-detail-text">@Contact.Phone</span>
+        </div>
+    </div>
+
+    <!-- Actions — ekuivalen Edit/Delete buttons di React -->
+    <div class="contact-actions">
+        <MudIconButton Icon="@Icons.Material.Filled.Edit"
+                       Size="Size.Small"
+                       OnClick="() => OnEdit.InvokeAsync(Contact)"
+                       Style="color: #a78bfa; background: rgba(139,92,246,0.1); border-radius: 8px;"
+                       title="Edit contact" />
+        <MudIconButton Icon="@Icons.Material.Filled.Delete"
+                       Size="Size.Small"
+                       OnClick="() => OnDelete.InvokeAsync(Contact)"
+                       Style="color: #ef4444; background: rgba(239,68,68,0.1); border-radius: 8px;"
+                       title="Delete contact" />
+    </div>
+</div>
+
+@code {
+    // Ekuivalen: props di React — { contact, onEdit, onDelete }
+    [Parameter] public Contact Contact { get; set; } = default!;
+    [Parameter] public EventCallback<Contact> OnEdit { get; set; }
+    [Parameter] public EventCallback<Contact> OnDelete { get; set; }
+
+    private bool _isHovered = false;
+}

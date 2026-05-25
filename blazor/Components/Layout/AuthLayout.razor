@@ -1,0 +1,26 @@
+@inherits LayoutComponentBase
+
+<!-- Layout khusus auth pages (SignIn, SignUp) — tanpa sidebar -->
+<MudThemeProvider Theme="_theme" IsDarkMode="true" />
+<MudPopoverProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<div class="auth-layout">
+    @Body
+</div>
+
+@code {
+    private MudTheme _theme = new MudTheme()
+    {
+        PaletteDark = new PaletteDark()
+        {
+            Primary = "#8b5cf6",
+            Secondary = "#06b6d4",
+            Background = "#0f0f1a",
+            Surface = "#1a1a2e",
+            TextPrimary = "#ffffff",
+            TextSecondary = "rgba(255,255,255,0.7)",
+        }
+    };
+}

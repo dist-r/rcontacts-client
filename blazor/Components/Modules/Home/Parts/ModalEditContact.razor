@@ -1,0 +1,128 @@
+@inject ContactState Contacts
+@inject ISnackbar Snackbar
+
+<!--
+  ModalEditContact.razor
+  Ekuivalen: ModalEditContact.tsx di React-TS
+  Props: id, name, email, phone, onClose
+-->
+
+<MudDialog @bind-Visible="_isOpen" Options="_dialogOptions">
+    <TitleContent>
+        <div class="dialog-title-content">
+            <MudIcon Icon="@Icons.Material.Filled.Edit" Style="color: #a78bfa; margin-right: 8px;" />
+            <span>Edit Contact</span>
+        </div>
+    </TitleContent>
+    <DialogContent>
+        <div class="dialog-form">
+            @if (Contacts.EditError is not null)
+            {
+                <MudAlert Severity="Severity.Error" Dense="true" Class="mb-3">@Contacts.EditError</MudAlert>
+            }
+
+            <!-- Pre-filled fields — ekuivalen useState({ name, email, phone }) di React -->
+            <MudTextField @bind-Value="_editName"
+                          Label="Full Name"
+                          Variant="Variant.Outlined"
+                          Adornment="Adornment.Start"
+                          AdornmentIcon="@Icons.Material.Filled.Person"
+                          AdornmentColor="Color.Primary"
+                          Class="dialog-field"
+                          Required="true" />
+
+            <MudTextField @bind-Value="_editEmail"
+                          Label="Email Address"
+                          Variant="Variant.Outlined"
+                          InputType="InputType.Email"
+                          Adornment="Adornment.Start"
+                          AdornmentIcon="@Icons.Material.Filled.Email"
+                          AdornmentColor="Color.Primary"
+                          Class="dialog-field"
+                          Required="true" />
+
+            <MudTextField @bind-Value="_editPhone"
+                          Label="Phone Number"
+                          Variant="Variant.Outlined"
+                          Adornment="Adornment.Start"
+                          AdornmentIcon="@Icons.Material.Filled.Phone"
+                          AdornmentColor="Color.Primary"
+                          Class="dialog-field"
+                          Required="true" />
+        </div>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Variant="Variant.Outlined"
+                   OnClick="Close"
+                   Style="border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.6); border-radius: 10px;">
+            Cancel
+        </MudButton>
+        <MudButton Variant="Variant.Filled"
+                   OnClick="HandleEdit"
+                   Disabled="Contacts.IsEditing"
+                   StartIcon="@Icons.Material.Filled.Save"
+                   Style="background: linear-gradient(135deg, #7c3aed, #4f46e5); color: white; border-radius: 10px;">
+            @if (Contacts.IsEditing)
+            {
+                <MudProgressCircular Size="Size.Small" Indeterminate="true" Style="color: white; margin-right: 6px;" />
+                <span>Saving...</span>
+            }
+            else
+            {
+                <span>Save Changes</span>
+            }
+        </MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    private bool _isOpen = false;
+    private string _currentId = string.Empty;
+
+    // Ekuivalen: const [editData, setEditData] = useState({ name, email, phone })
+    private string _editName = string.Empty;
+    private string _editEmail = string.Empty;
+    private string _editPhone = string.Empty;
+
+    private DialogOptions _dialogOptions = new()
+    {
+        CloseOnEscapeKey = true,
+        MaxWidth = MaxWidth.Small,
+        FullWidth = true,
+        BackdropClick = false
+    };
+
+    // Dipanggil dari Home.razor: _editModal?.Open(contact)
+    // Ekuivalen: setOpenModalEditContact(contact) di React
+    public void Open(Contact contact)
+    {
+        _currentId = contact.Id;
+        _editName = contact.Name;
+        _editEmail = contact.Email;
+        _editPhone = contact.Phone;
+        Contacts.ClearErrors();
+        _isOpen = true;
+        StateHasChanged();
+    }
+
+    private void Close()
+    {
+        _isOpen = false;
+    }
+
+    // Ekuivalen: const handleSubmit = () => { editContact({id, name, email, phone}); onClose(); }
+    private async Task HandleEdit()
+    {
+        if (string.IsNullOrWhiteSpace(_editName) ||
+            string.IsNullOrWhiteSpace(_editEmail) ||
+            string.IsNullOrWhiteSpace(_editPhone)) return;
+
+        await Contacts.EditContact(_currentId, _editName, _editEmail, _editPhone);
+
+        if (Contacts.EditError is null)
+        {
+            Snackbar.Add("Contact updated successfully!", Severity.Success);
+            Close();
+        }
+    }
+}
