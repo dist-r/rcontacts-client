@@ -12,7 +12,7 @@ export async function login(formData) {
   try {
     const res = await api.post('/auth/login', { email, password });
     // console.log('Login response:', res.data); // Debug log
-    const { token } = res.data;
+    const { token } = res.data.data;
 
     // console.log('Setting cookie...'); // Debug log
     // Set cookie

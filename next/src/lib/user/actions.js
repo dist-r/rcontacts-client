@@ -12,7 +12,7 @@ export async function getProfile() {
     const res = await api.get('/users/profile', {
       headers: { Authorization: `Bearer ${token}` },
     });
-    return res.data;
+    return res.data.data;
   } catch (error) {
     throw new Error(error.response?.data?.message || 'Failed to fetch profile');
   }
