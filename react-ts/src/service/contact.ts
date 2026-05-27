@@ -11,8 +11,8 @@ export const createContact = async (name: string, email: string, phone: string) 
         }
       }
     );
-    return res.data;
-  } catch (error : any) {
+    return res.data.data;
+  } catch (error: any) {
     if (error.response) {
       throw new Error(error.response.data.message || "Terjadi kesalahan server");
     } else if (error.request) {
@@ -31,8 +31,8 @@ export const getContacts = async () => {
         Authorization: `Bearer ${localStorage.getItem("token")}`
       }
     });
-    return res.data;
-  } catch (error : any) {
+    return res.data.data;
+  } catch (error: any) {
     if (error.response) throw new Error(error.response.data.message || "Terjadi kesalahan server");
     else if (error.request) throw new Error("Server tidak merespon");
     else throw new Error(error.message);
@@ -51,8 +51,8 @@ export const updateContact = async (id: string, name: string, email: string, pho
       }
     );
     return res.data;
-  } catch (error : any) {
-    if(error.response) throw new Error(error.response.data.message || "Terjadi kesalahan server");
+  } catch (error: any) {
+    if (error.response) throw new Error(error.response.data.message || "Terjadi kesalahan server");
     else if (error.request) throw new Error("Server tidak merespon");
     else throw new Error(error.message)
   }
@@ -66,9 +66,9 @@ export const deleteContact = async (id: string) => {
       }
     })
     return res.data;
-  } catch (error : any) {
-    if(error.response) throw new Error(error.response.data.message || "Terjadi kesalahan server");
-    else if(error.request) throw new Error("Server tidak merespon");
+  } catch (error: any) {
+    if (error.response) throw new Error(error.response.data.message || "Terjadi kesalahan server");
+    else if (error.request) throw new Error("Server tidak merespon");
     else throw new Error(error.message);
   }
 }
