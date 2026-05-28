@@ -34,8 +34,8 @@ function ContactCard({ contact, onEdit, onDelete }) {
           <FaEdit size={20} />
         </button>
         <button
-          onClick={() => onDelete(contact.id)}
-          className="text-red-500 hover:text-red-700"
+          onClick={() => onDelete(contact)}
+          className="text-red-500 hover:text-red-700 cursor-pointer"
         >
           <FaTrash size={20} />
         </button>
