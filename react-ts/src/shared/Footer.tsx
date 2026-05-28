@@ -3,38 +3,84 @@ import { FaGithub, FaTwitter, FaLinkedin } from 'react-icons/fa';
 
 export default function Footer() {
   return (
-    <footer className="bg-[#3178c6] text-gray-200 py-12">
-      <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 text-center md:text-left">
-        <div>
-          <h3 className="text-lg font-bold mb-4">RContacts</h3>
-          <p className="text-gray-400">Your digital rolodex, reimagined.</p>
+    <footer className="bg-slate-950 text-slate-450 border-t border-slate-900 py-16 font-sans relative z-10">
+      <div className="container mx-auto px-4 max-w-6xl grid grid-cols-1 md:grid-cols-4 gap-10 text-center md:text-left">
+        <div className="space-y-4">
+          <h3 className="text-xl font-extrabold text-white tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-white to-[#61dafb]">
+            RContacts
+          </h3>
+          <p className="text-xs text-slate-500 leading-relaxed">
+            Your dynamic digital rolodex, designed with elite developer features and high speeds.
+          </p>
         </div>
+        
         <div>
-          <h3 className="text-lg font-bold mb-4">Navigate</h3>
-          <ul>
-            <li><Link to="/home" className="text-gray-400 hover:text-[#61dafb]">Home</Link></li>
-            <li><Link to="/signup" className="text-gray-400 hover:text-[#61dafb]">Sign Up</Link></li>
-            <li><Link to="/signin" className="text-gray-400 hover:text-[#61dafb]">Sign In</Link></li>
+          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">Navigate</h4>
+          <ul className="space-y-2.5 text-xs">
+            <li>
+              <Link to="/home" className="text-slate-550 hover:text-[#61dafb] transition-colors duration-300">
+                Home Dashboard
+              </Link>
+            </li>
+            <li>
+              <Link to="/signup" className="text-slate-550 hover:text-[#61dafb] transition-colors duration-300">
+                Register Free
+              </Link>
+            </li>
+            <li>
+              <Link to="/signin" className="text-slate-550 hover:text-[#61dafb] transition-colors duration-300">
+                Portal Login
+              </Link>
+            </li>
           </ul>
         </div>
+
         <div>
-          <h3 className="text-lg font-bold mb-4">Legal</h3>
-          <ul>
-            <li><a href="#" className="text-gray-400 hover:text-[#61dafb]">Terms of Service</a></li>
-            <li><a href="#" className="text-gray-400 hover:text-[#61dafb]">Privacy Policy</a></li>
+          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">Legal Framework</h4>
+          <ul className="space-y-2.5 text-xs">
+            <li>
+              <a href="#" className="text-slate-550 hover:text-[#61dafb] transition-colors duration-300">
+                Terms of Service
+              </a>
+            </li>
+            <li>
+              <a href="#" className="text-slate-550 hover:text-[#61dafb] transition-colors duration-300">
+                Privacy Protocol
+              </a>
+            </li>
           </ul>
         </div>
-        <div>
-          <h3 className="text-lg font-bold mb-4">Connect</h3>
-          <div className="flex justify-center md:justify-start space-x-4">
-            <a href="#" className="text-gray-400 hover:text-[#61dafb]"><FaGithub size={24} /></a>
-            <a href="#" className="text-gray-400 hover:text-[#61dafb]"><FaTwitter size={24} /></a>
-            <a href="#" className="text-gray-400 hover:text-[#61dafb]"><FaLinkedin size={24} /></a>
+
+        <div className="space-y-4">
+          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">Developer Network</h4>
+          <div className="flex justify-center md:justify-start gap-4">
+            <a 
+              href="#" 
+              className="w-9 h-9 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-[#61dafb] hover:border-[#61dafb]/40 transition-all duration-300 shadow-sm"
+              title="GitHub"
+            >
+              <FaGithub size={16} />
+            </a>
+            <a 
+              href="#" 
+              className="w-9 h-9 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-[#61dafb] hover:border-[#61dafb]/40 transition-all duration-300 shadow-sm"
+              title="Twitter"
+            >
+              <FaTwitter size={16} />
+            </a>
+            <a 
+              href="#" 
+              className="w-9 h-9 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-[#61dafb] hover:border-[#61dafb]/40 transition-all duration-300 shadow-sm"
+              title="LinkedIn"
+            >
+              <FaLinkedin size={16} />
+            </a>
           </div>
         </div>
       </div>
-      <div className="mt-12 border-t border-gray-700 pt-8 text-center text-gray-500">
-        <p>&copy; 2025 RContacts. All rights reserved.</p>
+
+      <div className="mt-16 border-t border-slate-900/60 pt-8 text-center text-[10px] text-slate-650 font-mono">
+        <p>&copy; {new Date().getFullYear()} RContacts. Synthesized for modern developer flows.</p>
       </div>
     </footer>
   );
