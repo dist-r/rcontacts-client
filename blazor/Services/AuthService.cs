@@ -4,7 +4,6 @@ using rcontacts.Models;
 namespace rcontacts.Services;
 
 /// <summary>
-/// Ekuivalen service/auth.ts di React-TS
 /// Berisi fungsi login() dan register() yang memanggil API
 /// </summary>
 public class AuthService
@@ -17,12 +16,11 @@ public class AuthService
     }
 
     /// <summary>
-    /// Ekuivalen: export const login = async (email, password) => { ... }
     /// POST /auth/login
     /// </summary>
-    public async Task<AuthResponse> Login(string email, string password)
+    public async Task<LoginResponse> Login(string email, string password)
     {
-        var response = await _api.Client.PostAsJsonAsync("/api/v1/auth/login", new { email, password });
+        var response = await _api.Client.PostAsJsonAsync("/api/v2/auth/login", new { email, password });
 
         if (!response.IsSuccessStatusCode)
         {
@@ -30,17 +28,16 @@ public class AuthService
             throw new Exception(error?.Message ?? "Login gagal");
         }
 
-        var result = await response.Content.ReadFromJsonAsync<AuthResponse>();
+        var result = await response.Content.ReadFromJsonAsync<LoginResponse>();
         return result ?? throw new Exception("Response tidak valid");
     }
 
     /// <summary>
-    /// Ekuivalen: export const register = async (username, name, email, password) => { ... }
     /// POST /auth/register
     /// </summary>
-    public async Task<AuthResponse> Register(string username, string name, string email, string password)
+    public async Task<RegisterResponse> Register(string username, string name, string email, string password)
     {
-        var response = await _api.Client.PostAsJsonAsync("/api/v1/auth/register", new { username, name, email, password });
+        var response = await _api.Client.PostAsJsonAsync("/api/v2/auth/register", new { username, name, email, password });
 
         if (!response.IsSuccessStatusCode)
         {
@@ -48,14 +45,14 @@ public class AuthService
             throw new Exception(error?.Message ?? "Registrasi gagal");
         }
 
-        var result = await response.Content.ReadFromJsonAsync<AuthResponse>();
+        var result = await response.Content.ReadFromJsonAsync<RegisterResponse>();
         return result ?? throw new Exception("Response tidak valid");
     }
 
     public async Task<User?> GetCurrentUser()
     {
         await _api.SetAuthHeader();
-        var response = await _api.Client.GetAsync("/api/v1/users/profile");
+        var response = await _api.Client.GetAsync("/api/v2/users/profile");
         if (!response.IsSuccessStatusCode) return null;
         return await response.Content.ReadFromJsonAsync<User>();
     }

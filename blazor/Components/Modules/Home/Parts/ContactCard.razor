@@ -3,8 +3,6 @@
 
 <!--
   ContactCard.razor — sub-komponen card kontak
-  Ekuivalen: map item di React Home.tsx
-  <div key={contact.id} className="bg-gray-800 p-6 rounded-lg...">
 -->
 
 <div class="contact-card @(_isHovered ? "contact-card-hovered" : "")"
@@ -29,7 +27,7 @@
         </div>
     </div>
 
-    <!-- Actions — ekuivalen Edit/Delete buttons di React -->
+    <!-- Actions -->
     <div class="contact-actions">
         <MudIconButton Icon="@Icons.Material.Filled.Edit"
                        Size="Size.Small"
@@ -45,7 +43,6 @@
 </div>
 
 @code {
-    // Ekuivalen: props di React — { contact, onEdit, onDelete }
     [Parameter] public Contact Contact { get; set; } = default!;
     [Parameter] public EventCallback<Contact> OnEdit { get; set; }
     [Parameter] public EventCallback<Contact> OnDelete { get; set; }

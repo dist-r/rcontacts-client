@@ -3,7 +3,6 @@
 
 <!--
   ModalDeleteContact.razor
-  Ekuivalen: ModalDeleteContact.tsx di React-TS
   Menampilkan data kontak + konfirmasi hapus
 -->
 
@@ -16,7 +15,7 @@
     </TitleContent>
     <DialogContent>
         <div style="text-align: center; padding: 8px 0;">
-            <!-- Warning icon — ekuivalen <FaExclamationTriangle> di React -->
+            <!-- Warning icon -->
             <MudIcon Icon="@Icons.Material.Filled.Warning"
                      Style="font-size: 56px; color: #f59e0b; margin-bottom: 16px;" />
 
@@ -25,7 +24,7 @@
                 <strong style="color: #ef4444;">This action cannot be undone.</strong>
             </p>
 
-            <!-- Contact preview — ekuivalen div.bg-gray-100 di React -->
+            <!-- Contact preview -->
             <div class="delete-contact-preview">
                 <div class="preview-row">
                     <MudIcon Icon="@Icons.Material.Filled.Person" Style="font-size: 16px; color: #a78bfa; margin-right: 8px;" />
@@ -53,7 +52,7 @@
                    Style="border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.6); border-radius: 10px;">
             Cancel
         </MudButton>
-        <!-- Delete Button — ekuivalen <button onClick={handleDelete} disabled={isRemoving}> -->
+        <!-- Delete Button -->
         <MudButton Variant="Variant.Filled"
                    OnClick="HandleDelete"
                    Disabled="Contacts.IsRemoving"
@@ -88,7 +87,6 @@
     };
 
     // Dipanggil dari Home.razor: _deleteModal?.Open(contact)
-    // Ekuivalen: setOpenModalDeleteContact(contact) di React
     public void Open(Contact contact)
     {
         _contactId = contact.Id;
@@ -105,7 +103,6 @@
         _isOpen = false;
     }
 
-    // Ekuivalen: const handleDelete = () => { removeContact(id); onClose(); }
     private async Task HandleDelete()
     {
         await Contacts.RemoveContact(_contactId);

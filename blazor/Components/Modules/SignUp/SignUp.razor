@@ -121,7 +121,6 @@
         Auth.OnChange -= StateHasChanged;
     }
 
-    // Ekuivalen: const handleRegister = () => { register({ username, name, email, password }); }
     private async Task HandleRegister()
     {
         if (string.IsNullOrWhiteSpace(_username) ||

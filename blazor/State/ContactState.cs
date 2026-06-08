@@ -3,36 +3,23 @@ using rcontacts.Services;
 
 namespace rcontacts.State;
 
-/// <summary>
-/// Ekuivalen hooks/useContact.ts di React-TS
-/// Scoped service — satu instance per browser session
-///
-/// Di React:
-///   const { contacts, isLoading, addContact, editContact, removeContact } = useContacts();
-/// Di Blazor:
-///   [Inject] ContactState Contacts { get; set; }
-/// </summary>
 public class ContactState
 {
     private readonly ContactService _contactService;
 
-    // Ekuivalen event callback untuk notify komponen re-render
     public event Action? OnChange;
 
-    // State — ekuivalen useState / useQuery di React
     public List<Contact> Contacts { get; private set; } = new();
     public bool IsLoading { get; private set; }
     public string? Error { get; private set; }
 
-    // Add state
     public bool IsAdding { get; private set; }
     public string? AddError { get; private set; }
 
-    // Edit state
+  
     public bool IsEditing { get; private set; }
     public string? EditError { get; private set; }
 
-    // Remove state
     public bool IsRemoving { get; private set; }
     public string? RemoveError { get; private set; }
 
@@ -41,10 +28,6 @@ public class ContactState
         _contactService = contactService;
     }
 
-    /// <summary>
-    /// Ekuivalen: useQuery({ queryKey: ["contacts"], queryFn: getContacts })
-    /// Load semua kontak dari API
-    /// </summary>
     public async Task LoadContacts()
     {
         IsLoading = true;
@@ -66,9 +49,6 @@ public class ContactState
         }
     }
 
-    /// <summary>
-    /// Ekuivalen: useMutation({ mutationFn: createContact, onSuccess: invalidateQueries })
-    /// </summary>
     public async Task AddContact(string name, string email, string phone)
     {
         IsAdding = true;
@@ -78,7 +58,7 @@ public class ContactState
         try
         {
             await _contactService.CreateContact(name, email, phone);
-            await LoadContacts(); // Reload seperti invalidateQueries
+            await LoadContacts();
         }
         catch (Exception ex)
         {
@@ -92,9 +72,6 @@ public class ContactState
         }
     }
 
-    /// <summary>
-    /// Ekuivalen: useMutation({ mutationFn: updateContact, onSuccess: invalidateQueries })
-    /// </summary>
     public async Task EditContact(string id, string name, string email, string phone)
     {
         IsEditing = true;
@@ -104,7 +81,7 @@ public class ContactState
         try
         {
             await _contactService.UpdateContact(id, name, email, phone);
-            await LoadContacts(); // Reload seperti invalidateQueries
+            await LoadContacts();
         }
         catch (Exception ex)
         {
@@ -118,9 +95,6 @@ public class ContactState
         }
     }
 
-    /// <summary>
-    /// Ekuivalen: useMutation({ mutationFn: deleteContact, onSuccess: invalidateQueries })
-    /// </summary>
     public async Task RemoveContact(string id)
     {
         IsRemoving = true;
@@ -130,7 +104,7 @@ public class ContactState
         try
         {
             await _contactService.DeleteContact(id);
-            await LoadContacts(); // Reload seperti invalidateQueries
+            await LoadContacts();
         }
         catch (Exception ex)
         {

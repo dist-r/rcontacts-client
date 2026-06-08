@@ -9,19 +9,17 @@
 <PageTitle>My Contacts — RContacts</PageTitle>
 
 <!-- 
-  Ekuivalen Home.tsx di React-TS
-  State diambil dari injected Scoped services, bukan useState/useQuery
+  State diambil dari injected Scoped services
 -->
 
 @if (!Auth.IsAuthenticated)
 {
-    <!-- Ekuivalen: {popUpSignIn && <ModalSignIn />} di React -->
     <ModalSignInRequired />
 }
 else
 {
     <div class="home-wrapper">
-        <!-- Page Header — ekuivalen <div className="flex justify-between..."> di React -->
+        <!-- Page Header -->
         <div class="page-header">
             <div class="page-header-left">
                 <h1 class="page-title">
@@ -36,14 +34,14 @@ else
                 </p>
             </div>
             <div class="page-header-actions">
-                <!-- Add Contact Button — ekuivalen <button onClick={() => setOpenModalAddContact(true)}> -->
+                <!-- Add Contact Button -->
                 <MudButton Variant="Variant.Filled"
                            StartIcon="@Icons.Material.Filled.PersonAdd"
                            OnClick="OpenAddDialog"
                            Style="background: linear-gradient(135deg, #7c3aed, #4f46e5); color: white; border-radius: 12px; font-weight: 600;">
                     Add Contact
                 </MudButton>
-                <!-- Logout Button — ekuivalen <button onClick={logout}> -->
+                <!-- Logout Button -->
                 <MudButton Variant="Variant.Outlined"
                            StartIcon="@Icons.Material.Filled.Logout"
                            OnClick="HandleLogout"
@@ -86,7 +84,6 @@ else
             <div class="contacts-grid">
                 @foreach (var contact in Contacts.Contacts)
                 {
-                    <!-- Ekuivalen: ContactCard component di parts/ -->
                     <ContactCard Contact="contact"
                                  OnEdit="OpenEditDialog"
                                  OnDelete="OpenDeleteDialog" />
@@ -94,7 +91,7 @@ else
             </div>
         }
 
-        <!-- Dialogs — ekuivalen conditional renders di React -->
+        <!-- Dialogs -->
         <ModalAddContact @ref="_addModal" />
         <ModalEditContact @ref="_editModal" />
         <ModalDeleteContact @ref="_deleteModal" />
@@ -102,14 +99,14 @@ else
 }
 
 @code {
-    // Refs ke modal components — ekuivalen state variables di React
+    // Refs ke modal components
     private ModalAddContact? _addModal;
     private ModalEditContact? _editModal;
     private ModalDeleteContact? _deleteModal;
 
     protected override void OnInitialized()
     {
-        // Subscribe ke state changes — ekuivalen useEffect untuk re-render
+        // Subscribe ke state changes untuk re-render
         Auth.OnChange += StateHasChanged;
         Contacts.OnChange += StateHasChanged;
     }
@@ -118,36 +115,36 @@ else
     {
         if (firstRender)
         {
-            // Cek auth saat mount — ekuivalen useEffect(() => { checkToken(); }, [])
+            // Cek auth saat mount
             await Auth.CheckAuth();
 
             if (Auth.IsAuthenticated)
             {
-                // Load kontak — ekuivalen useQuery yang auto-fetch saat component mount
+                // Load kontak saat component mount
                 await Contacts.LoadContacts();
             }
         }
     }
 
-    // Buka dialog Add — ekuivalen: setOpenModalAddContact(true)
+    // Buka dialog Add
     private void OpenAddDialog()
     {
         _addModal?.Open();
     }
 
-    // Buka dialog Edit — ekuivalen: setOpenModalEditContact(contact)
+    // Buka dialog Edit
     private void OpenEditDialog(Contact contact)
     {
         _editModal?.Open(contact);
     }
 
-    // Buka dialog Delete — ekuivalen: setOpenModalDeleteContact(contact)
+    // Buka dialog Delete
     private void OpenDeleteDialog(Contact contact)
     {
         _deleteModal?.Open(contact);
     }
 
-    // Logout — ekuivalen: const { logout } = useAuth(); onClick={logout}
+    // Logout
     private async Task HandleLogout()
     {
         await Auth.Logout();

@@ -3,10 +3,6 @@ using Blazored.LocalStorage;
 
 namespace rcontacts.Services;
 
-/// <summary>
-/// Ekuivalen axios instance di React-TS:
-/// export const api = axios.create({ baseURL: "http://localhost:3000/api/v1" })
-/// </summary>
 public class ApiClient
 {
     private readonly HttpClient _httpClient;
@@ -20,7 +16,6 @@ public class ApiClient
 
     /// <summary>
     /// Tambahkan Authorization header dari token di localStorage
-    /// Ekuivalen: headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
     /// </summary>
     public async Task SetAuthHeader()
     {

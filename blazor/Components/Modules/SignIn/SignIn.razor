@@ -20,7 +20,7 @@
             <p class="auth-subtitle">Sign in to manage your contacts</p>
         </div>
 
-        <!-- Form — ekuivalen ModalSignIn di React-TS -->
+        <!-- Form -->
         <div class="auth-form">
             <!-- Error Alert -->
             @if (Auth.LoginError is not null)
@@ -86,7 +86,6 @@
 </div>
 
 @code {
-    // Ekuivalen: const [email, setEmail] = useState("") di React
     private string _email = string.Empty;
     private string _password = string.Empty;
     private bool _showPassword = false;
@@ -96,7 +95,6 @@
 
     protected override void OnInitialized()
     {
-        // Ekuivalen: useEffect(() => { if (token) navigate("/home"); }, [])
         Auth.OnChange += StateHasChanged;
     }
 
@@ -105,7 +103,6 @@
         Auth.OnChange -= StateHasChanged;
     }
 
-    // Ekuivalen: const handleLogin = () => { login({ email, password }); }
     private async Task HandleLogin()
     {
         if (string.IsNullOrWhiteSpace(_email) || string.IsNullOrWhiteSpace(_password)) return;

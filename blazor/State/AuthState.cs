@@ -5,23 +5,14 @@ using rcontacts.Services;
 
 namespace rcontacts.State;
 
-/// <summary>
-/// Ekuivalen hooks/useAuth.ts di React-TS
-/// Scoped service — satu instance per browser session (SignalR circuit)
-///
-/// Di React: const { login, logout, isLoggingIn, loginError } = useAuth();
-/// Di Blazor: [Inject] AuthState Auth { get; set; }  ← inject di komponen
-/// </summary>
 public class AuthState
 {
     private readonly AuthService _authService;
     private readonly ILocalStorageService _localStorage;
     private readonly NavigationManager _navigation;
 
-    // Ekuivalen event callback untuk re-render komponen (seperti React setState)
     public event Action? OnChange;
 
-    // State properties — ekuivalen useState di React
     public bool IsLoggingIn { get; private set; }
     public bool IsRegistering { get; private set; }
     public string? LoginError { get; private set; }
@@ -35,13 +26,7 @@ public class AuthState
         _localStorage = localStorage;
         _navigation = navigation;
     }
-
-    /// <summary>
-    /// Ekuivalen: const { mutate: login } = useMutation({
-    ///   mutationFn: (email, password) => loginService(email, password),
-    ///   onSuccess: (data) => { localStorage.setItem("token", data.token); navigate("/home"); }
-    /// })
-    /// </summary>
+    
     public async Task Login(string email, string password)
     {
         IsLoggingIn = true;
@@ -51,7 +36,7 @@ public class AuthState
         try
         {
             var result = await _authService.Login(email, password);
-            await _localStorage.SetItemAsync("token", result.Token);
+            await _localStorage.SetItemAsync("token", result.Data.Token);
             IsAuthenticated = true;
             NotifyStateChanged();
             _navigation.NavigateTo("/home");
@@ -68,11 +53,6 @@ public class AuthState
         }
     }
 
-    /// <summary>
-    /// Ekuivalen: const { mutate: register } = useMutation({
-    ///   onSuccess: () => navigate("/signin")
-    /// })
-    /// </summary>
     public async Task Register(string username, string name, string email, string password)
     {
         IsRegistering = true;
@@ -82,7 +62,7 @@ public class AuthState
         try
         {
             var result = await _authService.Register(username, name, email, password);
-            await _localStorage.SetItemAsync("token", result.Token);
+            // await _localStorage.SetItemAsync("token", result.Data.Token);
             NotifyStateChanged();
             _navigation.NavigateTo("/signin");
         }
@@ -98,9 +78,6 @@ public class AuthState
         }
     }
 
-    /// <summary>
-    /// Ekuivalen: const logout = () => { localStorage.removeItem("token"); navigate("/signin"); }
-    /// </summary>
     public async Task Logout()
     {
         await _localStorage.RemoveItemAsync("token");
@@ -111,7 +88,7 @@ public class AuthState
     }
 
     /// <summary>
-    /// Cek token di localStorage saat komponen mount — ekuivalen useEffect di React
+    /// Cek token di localStorage saat komponen mount
     /// </summary>
     public async Task CheckAuth()
     {

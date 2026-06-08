@@ -3,7 +3,6 @@
 
 <!--
   ModalAddContact.razor
-  Ekuivalen: ModalAddContact.tsx di React-TS (modules/home/parts/)
   Menggunakan MudDialog bukan fixed overlay custom
 -->
 
@@ -21,7 +20,7 @@
                 <MudAlert Severity="Severity.Error" Dense="true" Class="mb-3">@Contacts.AddError</MudAlert>
             }
 
-            <!-- Name — ekuivalen <input name="name" value={data.name} onChange={handleChange} /> -->
+            <!-- Name -->
             <MudTextField @bind-Value="_name"
                           Label="Full Name"
                           Variant="Variant.Outlined"
@@ -57,13 +56,13 @@
         </div>
     </DialogContent>
     <DialogActions>
-        <!-- Cancel — ekuivalen <button onClick={onClose}>Cancel</button> -->
+        <!-- Cancel -->
         <MudButton Variant="Variant.Outlined"
                    OnClick="Close"
                    Style="border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.6); border-radius: 10px;">
             Cancel
         </MudButton>
-        <!-- Submit — ekuivalen <button onClick={handleAddContact} disabled={isAdding}> -->
+        <!-- Submit -->
         <MudButton Variant="Variant.Filled"
                    OnClick="HandleAdd"
                    Disabled="Contacts.IsAdding"
@@ -83,10 +82,8 @@
 </MudDialog>
 
 @code {
-    // Ekuivalen: const [openModalAddContact, setOpenModalAddContact] = useState(false)
     private bool _isOpen = false;
 
-    // Ekuivalen: const [data, setData] = useState({ name: "", email: "", phone: "" })
     private string _name = string.Empty;
     private string _email = string.Empty;
     private string _phone = string.Empty;
@@ -115,7 +112,6 @@
         _isOpen = false;
     }
 
-    // Ekuivalen: const handleAddContact = () => { addContact({name, email, phone}); onClose(); }
     private async Task HandleAdd()
     {
         if (string.IsNullOrWhiteSpace(_name) ||

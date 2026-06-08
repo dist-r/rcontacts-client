@@ -2,3 +2,5 @@
 **/.next
 **/bin
 **/obj
+**/.vs
+**/wwwroot/sample-data

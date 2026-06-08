@@ -11,15 +11,12 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 // ── MudBlazor ────────────────────────────────────────────────────────────────
-// Ekuivalen: import { QueryClient, QueryClientProvider } dari react-query
 builder.Services.AddMudServices();
 
 // ── Blazored.LocalStorage ─────────────────────────────────────────────────────
-// Ekuivalen: localStorage.getItem/setItem di JavaScript
 builder.Services.AddBlazoredLocalStorage();
 
 // ── HttpClient (API Client) ────────────────────────────────────────────────────
-// Ekuivalen: axios.create({ baseURL: "http://localhost:3000/api/v1" })
 var apiBaseUrl = builder.Configuration["ApiSettings:BaseUrl"] ?? "http://localhost:3000";
 builder.Services.AddHttpClient<ApiClient>(client =>
 {
@@ -28,12 +25,10 @@ builder.Services.AddHttpClient<ApiClient>(client =>
 });
 
 // ── Services (Service Layer) ───────────────────────────────────────────────────
-// Ekuivalen: service/auth.ts, service/contact.ts
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<ContactService>();
 
 // ── State (Hooks Equivalent) ───────────────────────────────────────────────────
-// Ekuivalen: hooks/useAuth.ts, hooks/useContact.ts
 // Scoped = satu instance per SignalR circuit (per user session)
 builder.Services.AddScoped<AuthState>();
 builder.Services.AddScoped<ContactState>();

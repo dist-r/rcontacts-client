@@ -3,8 +3,6 @@
 
 <!--
   ModalEditContact.razor
-  Ekuivalen: ModalEditContact.tsx di React-TS
-  Props: id, name, email, phone, onClose
 -->
 
 <MudDialog @bind-Visible="_isOpen" Options="_dialogOptions">
@@ -21,7 +19,7 @@
                 <MudAlert Severity="Severity.Error" Dense="true" Class="mb-3">@Contacts.EditError</MudAlert>
             }
 
-            <!-- Pre-filled fields — ekuivalen useState({ name, email, phone }) di React -->
+            <!-- Pre-filled fields -->
             <MudTextField @bind-Value="_editName"
                           Label="Full Name"
                           Variant="Variant.Outlined"
@@ -79,7 +77,6 @@
     private bool _isOpen = false;
     private string _currentId = string.Empty;
 
-    // Ekuivalen: const [editData, setEditData] = useState({ name, email, phone })
     private string _editName = string.Empty;
     private string _editEmail = string.Empty;
     private string _editPhone = string.Empty;
@@ -93,7 +90,6 @@
     };
 
     // Dipanggil dari Home.razor: _editModal?.Open(contact)
-    // Ekuivalen: setOpenModalEditContact(contact) di React
     public void Open(Contact contact)
     {
         _currentId = contact.Id;
@@ -110,7 +106,6 @@
         _isOpen = false;
     }
 
-    // Ekuivalen: const handleSubmit = () => { editContact({id, name, email, phone}); onClose(); }
     private async Task HandleEdit()
     {
         if (string.IsNullOrWhiteSpace(_editName) ||
