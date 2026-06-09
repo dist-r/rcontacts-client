@@ -1,2 +1,7 @@
 **/node_modules
 **/.next
+**/bin
+**/obj
+**/.vs
+**/wwwroot/sample-data
+**/dist

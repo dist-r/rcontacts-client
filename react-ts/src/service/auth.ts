@@ -1,11 +1,11 @@
-import {api} from "../api/api";
+import { api } from "../api/api";
 
 export const login = async (email: string, password: string) => {
   try {
     const res = await api.post("/auth/login", { email, password });
-    return res.data;
+    return res.data.data;
   } catch (error: any) {
-    if(error.response) {
+    if (error.response) {
       throw new Error(error.response.data.message)
     }
     throw new Error("Something went wrong")

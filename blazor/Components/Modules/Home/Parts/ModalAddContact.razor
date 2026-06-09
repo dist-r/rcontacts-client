@@ -1,0 +1,129 @@
+@inject ContactState Contacts
+@inject ISnackbar Snackbar
+
+<!--
+  ModalAddContact.razor
+  Menggunakan MudDialog bukan fixed overlay custom
+-->
+
+<MudDialog @bind-Visible="_isOpen" Options="_dialogOptions">
+    <TitleContent>
+        <div class="dialog-title-content">
+            <MudIcon Icon="@Icons.Material.Filled.PersonAdd" Style="color: #a78bfa; margin-right: 8px;" />
+            <span>Add New Contact</span>
+        </div>
+    </TitleContent>
+    <DialogContent>
+        <div class="dialog-form">
+            @if (Contacts.AddError is not null)
+            {
+                <MudAlert Severity="Severity.Error" Dense="true" Class="mb-3">@Contacts.AddError</MudAlert>
+            }
+
+            <!-- Name -->
+            <MudTextField @bind-Value="_name"
+                          Label="Full Name"
+                          Variant="Variant.Outlined"
+                          Adornment="Adornment.Start"
+                          AdornmentIcon="@Icons.Material.Filled.Person"
+                          AdornmentColor="Color.Primary"
+                          Class="dialog-field"
+                          Placeholder="Enter full name"
+                          Required="true" />
+
+            <!-- Email -->
+            <MudTextField @bind-Value="_email"
+                          Label="Email Address"
+                          Variant="Variant.Outlined"
+                          InputType="InputType.Email"
+                          Adornment="Adornment.Start"
+                          AdornmentIcon="@Icons.Material.Filled.Email"
+                          AdornmentColor="Color.Primary"
+                          Class="dialog-field"
+                          Placeholder="Enter email address"
+                          Required="true" />
+
+            <!-- Phone -->
+            <MudTextField @bind-Value="_phone"
+                          Label="Phone Number"
+                          Variant="Variant.Outlined"
+                          Adornment="Adornment.Start"
+                          AdornmentIcon="@Icons.Material.Filled.Phone"
+                          AdornmentColor="Color.Primary"
+                          Class="dialog-field"
+                          Placeholder="Enter phone number"
+                          Required="true" />
+        </div>
+    </DialogContent>
+    <DialogActions>
+        <!-- Cancel -->
+        <MudButton Variant="Variant.Outlined"
+                   OnClick="Close"
+                   Style="border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.6); border-radius: 10px;">
+            Cancel
+        </MudButton>
+        <!-- Submit -->
+        <MudButton Variant="Variant.Filled"
+                   OnClick="HandleAdd"
+                   Disabled="Contacts.IsAdding"
+                   StartIcon="@Icons.Material.Filled.PersonAdd"
+                   Style="background: linear-gradient(135deg, #7c3aed, #4f46e5); color: white; border-radius: 10px;">
+            @if (Contacts.IsAdding)
+            {
+                <MudProgressCircular Size="Size.Small" Indeterminate="true" Style="color: white; margin-right: 6px;" />
+                <span>Adding...</span>
+            }
+            else
+            {
+                <span>Add Contact</span>
+            }
+        </MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    private bool _isOpen = false;
+
+    private string _name = string.Empty;
+    private string _email = string.Empty;
+    private string _phone = string.Empty;
+
+    private DialogOptions _dialogOptions = new()
+    {
+        CloseOnEscapeKey = true,
+        MaxWidth = MaxWidth.Small,
+        FullWidth = true,
+        BackdropClick = false
+    };
+
+    // Dipanggil dari Home.razor: _addModal?.Open()
+    public void Open()
+    {
+        _name = string.Empty;
+        _email = string.Empty;
+        _phone = string.Empty;
+        Contacts.ClearErrors();
+        _isOpen = true;
+        StateHasChanged();
+    }
+
+    private void Close()
+    {
+        _isOpen = false;
+    }
+
+    private async Task HandleAdd()
+    {
+        if (string.IsNullOrWhiteSpace(_name) ||
+            string.IsNullOrWhiteSpace(_email) ||
+            string.IsNullOrWhiteSpace(_phone)) return;
+
+        await Contacts.AddContact(_name, _email, _phone);
+
+        if (Contacts.AddError is null)
+        {
+            Snackbar.Add("Contact added successfully!", Severity.Success);
+            Close();
+        }
+    }
+}

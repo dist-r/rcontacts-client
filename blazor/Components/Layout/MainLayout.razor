@@ -1,0 +1,91 @@
+@inherits LayoutComponentBase
+
+<!-- 
+  MudBlazor ThemeProvider + SnackbarProvider
+-->
+<MudThemeProvider Theme="_theme" IsDarkMode="true" />
+<MudPopoverProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    <!-- AppBar -->
+    <MudAppBar Elevation="0" Style="background: linear-gradient(90deg, #0f0f1a 0%, #1a1a2e 100%); border-bottom: 1px solid rgba(139,92,246,0.3);">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu"
+                       Color="Color.Inherit"
+                       Edge="Edge.Start"
+                       OnClick="ToggleDrawer" />
+        <div class="navbar-brand">
+            <div class="brand-logo">
+                <MudIcon Icon="@Icons.Material.Filled.Contacts" Style="color: #a78bfa; font-size: 28px;" />
+            </div>
+            <MudText Typo="Typo.h6" Style="font-weight: 700; color: white; letter-spacing: 1px;">RContacts</MudText>
+            <MudChip T="string" Size="Size.Small" Style="background: rgba(139,92,246,0.2); color: #a78bfa; font-size: 10px; margin-left: 8px;">Blazor</MudChip>
+        </div>
+        <MudSpacer />
+        <MudIconButton Icon="@Icons.Custom.Brands.GitHub"
+                       Color="Color.Inherit"
+                       Href="https://github.com"
+                       Target="_blank"
+                       Style="color: rgba(255,255,255,0.7);" />
+    </MudAppBar>
+
+    <!-- Sidebar Drawer -->
+    <MudDrawer @bind-Open="_drawerOpen"
+               Elevation="0"
+               Variant="@DrawerVariant.Responsive"
+               Style="background: linear-gradient(180deg, #0f0f1a 0%, #1a1a2e 100%); border-right: 1px solid rgba(139,92,246,0.2);">
+        <MudDrawerHeader>
+            <div class="drawer-header">
+                <MudIcon Icon="@Icons.Material.Filled.Contacts" Style="color: #a78bfa; font-size: 32px;" />
+                <MudText Typo="Typo.h5" Style="color: white; font-weight: 700; margin-left: 8px;">RContacts</MudText>
+            </div>
+        </MudDrawerHeader>
+        <NavMenu />
+    </MudDrawer>
+
+    <!-- Main Content -->
+    <MudMainContent>
+        <div class="main-content-wrapper">
+            @Body
+        </div>
+    </MudMainContent>
+</MudLayout>
+
+@code {
+    private bool _drawerOpen = false;
+
+    // Custom MudBlazor theme — dark mode dengan warna ungu/biru neon
+    private MudTheme _theme = new MudTheme()
+    {
+        PaletteLight = new PaletteLight()
+        {
+            Primary = "#8b5cf6",
+            Secondary = "#06b6d4",
+            Background = "#0f0f1a",
+            Surface = "#1a1a2e",
+            DrawerBackground = "#0f0f1a",
+            AppbarBackground = "#0f0f1a",
+            TextPrimary = "#ffffff",
+            TextSecondary = "rgba(255,255,255,0.7)",
+        },
+        PaletteDark = new PaletteDark()
+        {
+            Primary = "#8b5cf6",
+            Secondary = "#06b6d4",
+            Background = "#0f0f1a",
+            Surface = "#1a1a2e",
+            DrawerBackground = "#0f0f1a",
+            AppbarBackground = "#0f0f1a",
+            TextPrimary = "#ffffff",
+            TextSecondary = "rgba(255,255,255,0.7)",
+            TableLines = "rgba(139,92,246,0.2)",
+            Divider = "rgba(139,92,246,0.2)",
+        }
+    };
+
+    private void ToggleDrawer()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+}

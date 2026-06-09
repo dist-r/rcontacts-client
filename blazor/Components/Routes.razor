@@ -1,0 +1,26 @@
+<Router AppAssembly="typeof(App).Assembly">
+    <Found Context="routeData">
+        <RouteView RouteData="routeData" DefaultLayout="typeof(Layout.MainLayout)" />
+        <FocusOnNavigate RouteData="routeData" Selector="h1" />
+    </Found>
+    <NotFound>
+        <PageTitle>404 — Page Not Found</PageTitle>
+        <LayoutView Layout="typeof(Layout.AuthLayout)">
+            <div class="not-found-page">
+                <div class="auth-bg-blur auth-blur-1"></div>
+                <div class="auth-bg-blur auth-blur-2"></div>
+                <div style="text-align: center; position: relative; z-index: 1;">
+                    <MudIcon Icon="@Icons.Material.Filled.SearchOff" Style="font-size: 80px; color: rgba(139,92,246,0.4);" />
+                    <h1 style="font-size: 80px; font-weight: 900; background: linear-gradient(135deg, #7c3aed, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0; line-height: 1;">404</h1>
+                    <p style="color: rgba(255,255,255,0.7); font-size: 18px; margin-bottom: 32px;">Oops! The page you're looking for doesn't exist.</p>
+                    <MudButton Variant="Variant.Filled"
+                               Href="/"
+                               StartIcon="@Icons.Material.Filled.Home"
+                               Style="background: linear-gradient(135deg, #7c3aed, #4f46e5); color: white; border-radius: 50px; padding: 12px 32px;">
+                        Back to Home
+                    </MudButton>
+                </div>
+            </div>
+        </LayoutView>
+    </NotFound>
+</Router>
