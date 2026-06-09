@@ -1,13 +1,13 @@
-import axiosInstance from "../api/axiosInstance";
+import {api} from "../api/axiosInstance";
 
 export const getUserProfile = async () => {
   try {
-    const response = await axiosInstance.get('/users/profile', {
+    const response = await api.get('/users/profile', {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
     });
-    return response.data;
+    return response.data.data;
   } catch (error) {
     if (error.response) {
       throw new Error(error.response.data.message || 'Failed to fetch user profile');
