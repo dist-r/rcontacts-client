@@ -5,11 +5,11 @@ using rcontacts.Services;
 
 namespace rcontacts.State;
 
-public class AuthState
+public class AuthState(AuthService authService, ILocalStorageService localStorage, NavigationManager navigation)
 {
-    private readonly AuthService _authService;
-    private readonly ILocalStorageService _localStorage;
-    private readonly NavigationManager _navigation;
+    private readonly AuthService _authService = authService;
+    private readonly ILocalStorageService _localStorage = localStorage;
+    private readonly NavigationManager _navigation = navigation;
 
     public event Action? OnChange;
 
@@ -20,14 +20,7 @@ public class AuthState
     public bool IsAuthenticated { get; private set; }
     public User? CurrentUser { get; private set; }
 
-    public AuthState(AuthService authService, ILocalStorageService localStorage, NavigationManager navigation)
-    {
-        _authService = authService;
-        _localStorage = localStorage;
-        _navigation = navigation;
-    }
-    
-    public async Task Login(string email, string password)
+  public async Task Login(string email, string password)
     {
         IsLoggingIn = true;
         LoginError = null;

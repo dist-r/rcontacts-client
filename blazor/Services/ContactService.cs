@@ -19,7 +19,7 @@ public class ContactService
     /// <summary>
     /// GET /contacts
     /// </summary>
-    public async Task<List<Contact>> GetContacts()
+    public async Task<GetAllContactsResponse> GetContacts()
     {
         await _api.SetAuthHeader();
         var response = await _api.Client.GetAsync("/api/v2/contacts");
@@ -30,8 +30,8 @@ public class ContactService
             throw new Exception(error?.Message ?? "Gagal memuat kontak");
         }
 
-        var result = await response.Content.ReadFromJsonAsync<List<Contact>>();
-        return result ?? new List<Contact>();
+        var result = await response.Content.ReadFromJsonAsync<GetAllContactsResponse>();
+        return result ?? new GetAllContactsResponse();
     }
 
     /// <summary>
@@ -55,7 +55,7 @@ public class ContactService
     public async Task UpdateContact(string id, string name, string email, string phone)
     {
         await _api.SetAuthHeader();
-        var response = await _api.Client.PutAsJsonAsync($"/api/v1/contacts/{id}", new { name, email, phone });
+        var response = await _api.Client.PutAsJsonAsync($"/api/v2/contacts/{id}", new { name, email, phone });
 
         if (!response.IsSuccessStatusCode)
         {
@@ -70,7 +70,7 @@ public class ContactService
     public async Task DeleteContact(string id)
     {
         await _api.SetAuthHeader();
-        var response = await _api.Client.DeleteAsync($"/api/v1/contacts/{id}");
+        var response = await _api.Client.DeleteAsync($"/api/v2/contacts/{id}");
 
         if (!response.IsSuccessStatusCode)
         {

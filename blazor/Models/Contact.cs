@@ -16,3 +16,10 @@ public class Contact
     [JsonPropertyName("phone")]
     public string Phone { get; set; } = string.Empty;
 }
+
+public class GetAllContactsResponse
+{
+    public string Message { get; set; } = string.Empty;
+    public bool Success { get; set; } = false;
+    public List<Contact> Data { get; set; } = [];
+}

@@ -16,6 +16,7 @@ The backend implementation is housed in a separate repository: https://github.co
   <img src="https://img.shields.io/badge/Astro-FF5D01?style=for-the-badge&logo=astro&logoColor=white" alt="Astro"/>
   <img src="https://img.shields.io/badge/Remix-000000?style=for-the-badge&logo=remix&logoColor=white" alt="Remix"/>
   <img src="https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white" alt="Angular"/>
+  <img src="https://img.shields.io/badge/Blazor-512BD4?style=for-the-badge&logo=blazor&logoColor=white" alt="Blazor"/>
 </div>
 
 ## Implementations
@@ -26,6 +27,10 @@ This repository will contain the following implementations:
 -   [React TypeScript Implementation](#react-typescript-implementation)
 -   [Vue Implementation](#vue-implementation)
 -   [Next.js Implementation](#nextjs-implementation)
+-   [Blazor Implementation](#blazor-implementation)
+
+> [!IMPORTANT]
+> The React, React TypeScript, Next.js, and Blazor implementations already use API v2.
 
 ---
 
@@ -34,6 +39,9 @@ This repository will contain the following implementations:
 This is the first implementation of the R-Contacts client, built with React and Vite.
 
 **by Uzumaki Bayu**
+
+> [!IMPORTANT]
+> This implementation uses API v2.
 
 ### Supporting Libraries
 <div>
@@ -87,6 +95,9 @@ This is the first implementation of the R-Contacts client, built with React and 
 This is the TypeScript implementation of the R-Contacts client, built with React, TypeScript, and Vite.
 
 **by Uzumaki Bayu**
+
+> [!IMPORTANT]
+> This implementation uses API v2.
 
 ### Supporting Libraries
 <div>
@@ -207,6 +218,9 @@ This is the Next.js implementation of the R-Contacts client, built with Next.js 
 
 **by Uzumaki Bayu**
 
+> [!IMPORTANT]
+> This implementation uses API v2.
+
 ### Supporting Libraries
 <div>
   <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js"/>
@@ -252,6 +266,61 @@ This is the Next.js implementation of the R-Contacts client, built with Next.js 
 3.  Start the development server:
     ```bash
     npm run dev
+    ```
+
+---
+
+## Blazor Implementation
+
+This is the Blazor implementation of the R-Contacts client, built with Blazor Server and MudBlazor.
+
+**by Uzumaki Bayu**
+
+> [!IMPORTANT]
+> This implementation uses API v2.
+
+### Supporting Libraries
+<div>
+  <img src="https://img.shields.io/badge/Blazor-512BD4?style=for-the-badge&logo=blazor&logoColor=white" alt="Blazor"/>
+  <img src="https://img.shields.io/badge/MudBlazor-594AE2?style=for-the-badge&logo=blazor&logoColor=white" alt="MudBlazor"/>
+</div>
+
+### Blazor Screenshots Gallery
+
+<p align="center">
+    <img src="./assets/blazor/landing-header.png" alt="Blazor Landing Header" width="360" />
+    <img src="./assets/blazor/landing-footer.png" alt="Blazor Landing Footer" width="360" />
+</p>
+<p align="center">
+    <img src="./assets/blazor/signin.png" alt="Blazor Sign In" width="360" />
+    <img src="./assets/blazor/signin-error.png" alt="Blazor Sign In Error" width="360" />
+</p>
+<p align="center">
+    <img src="./assets/blazor/signup.png" alt="Blazor Sign Up" width="360" />
+    <img src="./assets/blazor/signup-password-mismatch.png" alt="Blazor Sign Up Password Mismatch" width="360" />
+</p>
+<p align="center">
+    <img src="./assets/blazor/home.png" alt="Blazor Home" width="360" />
+    <img src="./assets/blazor/add-modal.png" alt="Blazor Add Contact Modal" width="360" />
+</p>
+<p align="center">
+    <img src="./assets/blazor/edit-modal.png" alt="Blazor Edit Contact Modal" width="360" />
+    <img src="./assets/blazor/delete-modal.png" alt="Blazor Delete Contact Modal" width="360" />
+</p>
+
+### Getting Started
+
+1.  Navigate to the `blazor` directory:
+    ```bash
+    cd blazor
+    ```
+2.  Restore the dependencies:
+    ```bash
+    dotnet restore
+    ```
+3.  Start the development server:
+    ```bash
+    dotnet run
     ```
 
 ---

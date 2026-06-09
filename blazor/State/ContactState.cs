@@ -36,7 +36,8 @@ public class ContactState
 
         try
         {
-            Contacts = await _contactService.GetContacts();
+            var dataContacts = await _contactService.GetContacts();
+            Contacts = dataContacts.Data;
         }
         catch (Exception ex)
         {

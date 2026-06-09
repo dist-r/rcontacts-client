@@ -6,19 +6,14 @@ namespace rcontacts.Services;
 /// <summary>
 /// Berisi fungsi login() dan register() yang memanggil API
 /// </summary>
-public class AuthService
+public class AuthService(ApiClient api)
 {
-    private readonly ApiClient _api;
+    private readonly ApiClient _api = api;
 
-    public AuthService(ApiClient api)
-    {
-        _api = api;
-    }
-
-    /// <summary>
-    /// POST /auth/login
-    /// </summary>
-    public async Task<LoginResponse> Login(string email, string password)
+  /// <summary>
+  /// POST /auth/login
+  /// </summary>
+  public async Task<LoginResponse> Login(string email, string password)
     {
         var response = await _api.Client.PostAsJsonAsync("/api/v2/auth/login", new { email, password });
 
@@ -40,7 +35,7 @@ public class AuthService
         var response = await _api.Client.PostAsJsonAsync("/api/v2/auth/register", new { username, name, email, password });
 
         if (!response.IsSuccessStatusCode)
-        {
+        {   
             var error = await response.Content.ReadFromJsonAsync<ErrorResponse>();
             throw new Exception(error?.Message ?? "Registrasi gagal");
         }
