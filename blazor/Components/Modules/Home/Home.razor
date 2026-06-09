@@ -1,0 +1,158 @@
+@page "/home"
+@layout MainLayout
+@inject AuthState Auth
+@inject ContactState Contacts
+@inject IDialogService DialogService
+@inject ISnackbar Snackbar
+@implements IDisposable
+
+<PageTitle>My Contacts — RContacts</PageTitle>
+
+<!-- 
+  State diambil dari injected Scoped services
+-->
+
+@if (!Auth.IsAuthenticated)
+{
+    <ModalSignInRequired />
+}
+else
+{
+    <div class="home-wrapper">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="page-header-left">
+                <h1 class="page-title">
+                    <MudIcon Icon="@Icons.Material.Filled.Contacts" Style="color: #a78bfa; margin-right: 12px; font-size: 36px;" />
+                    Your Contacts
+                </h1>
+                <p class="page-subtitle">
+                    @if (!Contacts.IsLoading)
+                    {
+                        <span>@Contacts.Contacts.Count contact@(Contacts.Contacts.Count != 1 ? "s" : "") found</span>
+                    }
+                </p>
+            </div>
+            <div class="page-header-actions">
+                <!-- Add Contact Button -->
+                <MudButton Variant="Variant.Filled"
+                           StartIcon="@Icons.Material.Filled.PersonAdd"
+                           OnClick="OpenAddDialog"
+                           Style="background: linear-gradient(135deg, #7c3aed, #4f46e5); color: white; border-radius: 12px; font-weight: 600;">
+                    Add Contact
+                </MudButton>
+                <!-- Logout Button -->
+                <MudButton Variant="Variant.Outlined"
+                           StartIcon="@Icons.Material.Filled.Logout"
+                           OnClick="HandleLogout"
+                           Style="border-color: rgba(239,68,68,0.4); color: #ef4444; border-radius: 12px;">
+                    Logout
+                </MudButton>
+            </div>
+        </div>
+
+        <!-- Error Alert -->
+        @if (Contacts.Error is not null)
+        {
+            <MudAlert Severity="Severity.Error" Class="mb-4">@Contacts.Error</MudAlert>
+        }
+
+        <!-- Loading State, Empty State, and Contacts Grid -->
+        @if (Contacts.IsLoading)
+        {
+            <div class="loading-state">
+                <MudProgressCircular Indeterminate="true" Size="Size.Large" Style="color: #a78bfa;" />
+                <p class="loading-text">Loading your contacts...</p>
+            </div>
+        }
+        else if (Contacts.Contacts.Count == 0)
+        {
+            <div class="empty-state">
+                <MudIcon Icon="@Icons.Material.Filled.ContactPage" Style="font-size: 72px; color: rgba(139,92,246,0.3);" />
+                <h3 class="empty-title">No contacts yet</h3>
+                <p class="empty-desc">Start building your network by adding your first contact</p>
+                <MudButton Variant="Variant.Filled"
+                           StartIcon="@Icons.Material.Filled.PersonAdd"
+                           OnClick="OpenAddDialog"
+                           Style="background: linear-gradient(135deg, #7c3aed, #4f46e5); color: white; border-radius: 50px; margin-top: 16px;">
+                    Add First Contact
+                </MudButton>
+            </div>
+        }
+        else
+        {
+            <div class="contacts-grid">
+                @foreach (var contact in Contacts.Contacts)
+                {
+                    <ContactCard Contact="contact"
+                                 OnEdit="OpenEditDialog"
+                                 OnDelete="OpenDeleteDialog" />
+                }
+            </div>
+        }
+
+        <!-- Dialogs -->
+        <ModalAddContact @ref="_addModal" />
+        <ModalEditContact @ref="_editModal" />
+        <ModalDeleteContact @ref="_deleteModal" />
+    </div>
+}
+
+@code {
+    // Refs ke modal components
+    private ModalAddContact? _addModal;
+    private ModalEditContact? _editModal;
+    private ModalDeleteContact? _deleteModal;
+
+    protected override void OnInitialized()
+    {
+        // Subscribe ke state changes untuk re-render
+        Auth.OnChange += StateHasChanged;
+        Contacts.OnChange += StateHasChanged;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // Cek auth saat mount
+            await Auth.CheckAuth();
+
+            if (Auth.IsAuthenticated)
+            {
+                // Load kontak saat component mount
+                await Contacts.LoadContacts();
+            }
+        }
+    }
+
+    // Buka dialog Add
+    private void OpenAddDialog()
+    {
+        _addModal?.Open();
+    }
+
+    // Buka dialog Edit
+    private void OpenEditDialog(Contact contact)
+    {
+        _editModal?.Open(contact);
+    }
+
+    // Buka dialog Delete
+    private void OpenDeleteDialog(Contact contact)
+    {
+        _deleteModal?.Open(contact);
+    }
+
+    // Logout
+    private async Task HandleLogout()
+    {
+        await Auth.Logout();
+    }
+
+    public void Dispose()
+    {
+        Auth.OnChange -= StateHasChanged;
+        Contacts.OnChange -= StateHasChanged;
+    }
+}

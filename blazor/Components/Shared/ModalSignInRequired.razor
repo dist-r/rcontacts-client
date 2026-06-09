@@ -1,0 +1,30 @@
+@inject NavigationManager Navigation
+
+<!--
+  ModalSignInRequired.razor
+  Tampil jika user belum login saat mengakses /home
+-->
+
+<div class="auth-required-overlay">
+    <div class="auth-bg-blur auth-blur-1"></div>
+    <div class="auth-bg-blur auth-blur-2"></div>
+    <div class="auth-required-card">
+        <div class="auth-required-icon">
+            <MudIcon Icon="@Icons.Material.Filled.Lock" Style="font-size: 56px; color: #a78bfa;" />
+        </div>
+        <h2 class="auth-required-title">Sign In Required</h2>
+        <p class="auth-required-desc">You need to sign in to access your contacts and manage your network.</p>
+        <MudButton Variant="Variant.Filled"
+                   Href="/signin"
+                   Size="Size.Large"
+                   StartIcon="@Icons.Material.Filled.Login"
+                   Style="background: linear-gradient(135deg, #7c3aed, #4f46e5); color: white; border-radius: 50px; padding: 12px 40px; font-weight: 700; font-size: 16px;">
+            Go to Sign In
+        </MudButton>
+        <div style="margin-top: 16px;">
+            <MudLink Href="/signup" Style="color: rgba(167,139,250,0.7); font-size: 14px;">
+                Don't have an account? Sign Up
+            </MudLink>
+        </div>
+    </div>
+</div>

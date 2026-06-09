@@ -1,0 +1,24 @@
+@inject NavigationManager Navigation
+
+<MudNavMenu>
+    <div class="nav-section-label">NAVIGATION</div>
+    <MudNavLink Href="/" Icon="@Icons.Material.Filled.Home" Match="NavLinkMatch.All"
+                Style="color: rgba(255,255,255,0.8);">
+        Landing
+    </MudNavLink>
+    <MudNavLink Href="/home" Icon="@Icons.Material.Filled.Contacts"
+                Style="color: rgba(255,255,255,0.8);">
+        My Contacts
+    </MudNavLink>
+
+    <MudDivider Style="border-color: rgba(139,92,246,0.2); margin: 8px 0;" />
+    <div class="nav-section-label">ACCOUNT</div>
+    <MudNavLink Href="/signin" Icon="@Icons.Material.Filled.Login"
+                Style="color: rgba(255,255,255,0.8);">
+        Sign In
+    </MudNavLink>
+    <MudNavLink Href="/signup" Icon="@Icons.Material.Filled.PersonAdd"
+                Style="color: rgba(255,255,255,0.8);">
+        Sign Up
+    </MudNavLink>
+</MudNavMenu>

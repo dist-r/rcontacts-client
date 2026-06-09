@@ -1,0 +1,130 @@
+@page "/"
+@layout AuthLayout
+
+<PageTitle>RContacts — Manage Your Professional Network</PageTitle>
+
+<!-- Hero Section -->
+<div class="landing-wrapper">
+    <!-- Navbar -->
+    <header class="landing-nav">
+        <div class="landing-nav-brand">
+            <MudIcon Icon="@Icons.Material.Filled.Contacts" Style="color: #a78bfa; font-size: 28px;" />
+            <span class="brand-text">RContacts</span>
+            <MudChip T="string" Size="Size.Small" Style="background: rgba(139,92,246,0.2); color: #a78bfa; font-size: 10px;">Blazor</MudChip>
+        </div>
+        <div class="landing-nav-actions">
+            <MudButton Variant="Variant.Outlined"
+                       Href="/signin"
+                       StartIcon="@Icons.Material.Filled.Login"
+                       Style="border-color: rgba(139,92,246,0.5); color: #a78bfa;"
+                       Class="nav-btn-signin">
+                Sign In
+            </MudButton>
+            <MudButton Variant="Variant.Filled"
+                       Href="/signup"
+                       StartIcon="@Icons.Material.Filled.PersonAdd"
+                       Style="background: linear-gradient(135deg, #7c3aed, #4f46e5); color: white;"
+                       Class="nav-btn-signup">
+                Sign Up
+            </MudButton>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero-section">
+        <div class="hero-bg-blur hero-blur-1"></div>
+        <div class="hero-bg-blur hero-blur-2"></div>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <MudIcon Icon="@Icons.Material.Filled.AutoAwesome" Style="font-size: 14px; margin-right: 4px;" />
+                Built with Blazor + MudBlazor
+            </div>
+            <h1 class="hero-title">
+                Manage Your<br />
+                <span class="hero-title-gradient">Contacts</span><br />
+                Effortlessly
+            </h1>
+            <p class="hero-subtitle">
+                The seamless solution to manage your professional network.
+                Secure, fast, and always accessible from anywhere.
+            </p>
+            <div class="hero-actions">
+                <MudButton Variant="Variant.Filled"
+                           Href="/signup"
+                           Size="Size.Large"
+                           StartIcon="@Icons.Material.Filled.RocketLaunch"
+                           Style="background: linear-gradient(135deg, #7c3aed, #4f46e5); color: white; padding: 12px 32px; font-weight: 700; font-size: 16px; border-radius: 50px;">
+                    Get Started Free
+                </MudButton>
+                <MudButton Variant="Variant.Outlined"
+                           Href="/signin"
+                           Size="Size.Large"
+                           Style="border-color: rgba(167,139,250,0.5); color: #a78bfa; padding: 12px 32px; border-radius: 50px;">
+                    Sign In
+                </MudButton>
+            </div>
+            <!-- Stats -->
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label">Secure</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-number">Fast</span>
+                    <span class="stat-label">Blazor Server</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-number">Free</span>
+                    <span class="stat-label">To Use</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="features-container">
+            <div class="section-header">
+                <h2 class="section-title">Why Choose <span class="gradient-text">RContacts?</span></h2>
+                <p class="section-subtitle">Everything you need to manage your professional network, built on modern Blazor technology.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon" style="background: rgba(139,92,246,0.15); border: 1px solid rgba(139,92,246,0.3);">
+                        <MudIcon Icon="@Icons.Material.Filled.FolderSpecial" Style="color: #a78bfa; font-size: 32px;" />
+                    </div>
+                    <h3 class="feature-title">Smart Organization</h3>
+                    <p class="feature-desc">Easily add, edit, and manage your contacts with a clean, intuitive MudBlazor interface.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon" style="background: rgba(6,182,212,0.15); border: 1px solid rgba(6,182,212,0.3);">
+                        <MudIcon Icon="@Icons.Material.Filled.Security" Style="color: #06b6d4; font-size: 32px;" />
+                    </div>
+                    <h3 class="feature-title">Bank-Level Security</h3>
+                    <p class="feature-desc">Your data is encrypted with JWT authentication, because your privacy is our priority.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon" style="background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3);">
+                        <MudIcon Icon="@Icons.Material.Filled.Public" Style="color: #10b981; font-size: 32px;" />
+                    </div>
+                    <h3 class="feature-title">Always Accessible</h3>
+                    <p class="feature-desc">Access your contacts from any device, anywhere in the world, anytime you need them.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="landing-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <MudIcon Icon="@Icons.Material.Filled.Contacts" Style="color: #a78bfa;" />
+                <span>RContacts</span>
+            </div>
+            <p class="footer-text">Built with ❤️ using Blazor + MudBlazor</p>
+            <p class="footer-text" style="font-size: 12px; opacity: 0.5;">© @DateTime.Now.Year RContacts. All rights reserved.</p>
+        </div>
+    </footer>
+</div>
