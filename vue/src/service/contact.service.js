@@ -1,8 +1,8 @@
-import axiosInstance from "../api/axiosInstance";
+import {api} from "../api/axiosInstance";
 
 export const createContact = async (name , email, phone) => {
   try {
-    const response = await axiosInstance.post('/contacts', {
+    const response = await api.post('/contacts', {
       name,
       email,
       phone
@@ -13,7 +13,7 @@ export const createContact = async (name , email, phone) => {
       }
     }
   );
-    return response.data;
+    return response.data.data;
   } catch (error) {
     if (error.response) {
       throw new Error(error.response.data.message || 'Failed to create contact');
@@ -25,12 +25,12 @@ export const createContact = async (name , email, phone) => {
 
 export const getContacts = async () => {
   try {
-    const response = await axiosInstance.get('/contacts', {
+    const response = await api.get('/contacts', {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       }
     });
-    return response.data;
+    return response.data.data;
   } catch (error) {
     if (error.response) {
       throw new Error(error.response.data.message || 'Failed to fetch contacts');
@@ -42,12 +42,12 @@ export const getContacts = async () => {
 
 export const deleteContact = async (contactId) => {
   try {
-    const response = await axiosInstance.delete(`/contacts/${contactId}`, {
+    const response = await api.delete(`/contacts/${contactId}`, {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       }
     });
-    return response.data;
+    return response.data.data;
   } catch (error) {
     if (error.response) {
       throw new Error(error.response.data.message || 'Failed to delete contact');
@@ -59,7 +59,7 @@ export const deleteContact = async (contactId) => {
 
 export const updateContact = async (contactId, name, email, phone) => {
   try {
-    const response = await axiosInstance.put(`/contacts/${contactId}`, {
+    const response = await api.put(`/contacts/${contactId}`, {
       name,
       email,
       phone
@@ -70,7 +70,7 @@ export const updateContact = async (contactId, name, email, phone) => {
       }
     }
   );
-    return response.data;
+    return response.data.data;
   } catch (error) {
     if (error.response) {
       throw new Error(error.response.data.message || 'Failed to update contact');

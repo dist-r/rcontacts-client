@@ -1,7 +1,9 @@
 import axios from "axios";
 
-const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || "http://localhost:3000/api/v1",
-})
+const apiVersion = import.meta.env.VITE_API_VERSION;
+const apiUrl = import.meta.env.VITE_API_URL;
 
-export default axiosInstance;
+export const api = axios.create({
+  baseURL: `${apiUrl}/${apiVersion}`,
+  timeout: 5000
+})
