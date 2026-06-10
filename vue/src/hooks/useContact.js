@@ -13,21 +13,21 @@ export function useContact () {
   const { mutate: createContactMutate, isPending: isCreatingContact, error: createContactError } = useMutation({
     mutationFn: ({ name, email, phone }) => createContact(name, email, phone),
     onSuccess: () => {
-      queryClient.invalidateQueries(['contacts']);
+      queryClient.invalidateQueries({ queryKey: ['contacts'] });
     },
   });
 
   const { mutate: deleteContactMutate, isPending: isDeletingContact, error: deleteContactError } = useMutation({
     mutationFn: (contactId) => deleteContact(contactId),
     onSuccess: () => {
-      queryClient.invalidateQueries(['contacts']);
+      queryClient.invalidateQueries({ queryKey: ['contacts'] });
     },
   });
 
   const { mutate: updateContactMutate, isPending: isUpdatingContact, error: updateContactError } = useMutation({
     mutationFn: ({ contactId, name, email, phone }) => updateContact(contactId, name, email, phone),
     onSuccess: () => {
-      queryClient.invalidateQueries(['contacts']);
+      queryClient.invalidateQueries({ queryKey: ['contacts'] });
     },
   });
 

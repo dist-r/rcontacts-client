@@ -6,7 +6,7 @@ import Footer from './parts/Footer.vue';
 </script>
 
 <template>
-  <div class="bg-[#f0f4f8]">
+  <div class="bg-slate-950 text-slate-100 min-h-screen font-sans overflow-hidden">
     <Header />
     <Main />
     <Footer />

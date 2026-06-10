@@ -6,7 +6,7 @@ const emit = defineEmits(['submit']);
 
 const props = defineProps({
   loading: Boolean,
-  error: String
+  error: [String, Object]
 })
 
 const form = reactive({
@@ -19,7 +19,7 @@ const parentSubmit = () => {
 };
 
 const childSubmit = () => {
-  if(form.email === '' || form.password === '') {
+  if (form.email === '' || form.password === '') {
     alert('Please fill in all fields!');
     return;
   }
@@ -28,58 +28,120 @@ const childSubmit = () => {
 </script>
 
 <template>
-  <section class="h-screen flex justify-center items-center bg-slate-800">
-    <form
-      class="w-96 p-6 border bg-white border-gray-300 rounded-lg shadow-lg"
-      @submit.prevent="childSubmit"
-    >
-      <Icon icon="logos:vue" width="48" height="48" class="mx-auto mb-2 text-green-500" />
-      <h2 class="text-2xl font-bold mb-6 text-center text-green-500">Sign In</h2>
+  <section class="min-h-screen flex justify-center items-center bg-slate-950 relative overflow-hidden font-sans px-4">
+    <!-- Cyber Grid Background -->
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]"></div>
 
-      <!-- Email -->
-      <div class="mb-4">
-        <label for="email" class="block text-green-500 mb-2">Email</label>
-        <input
-          type="email"
-          id="email"
-          class="w-full px-3 py-2 border border-gray-300 rounded-lg text-green-500
-                 focus:outline-none focus:ring-2 focus:ring-green-500"
-          placeholder="Enter your email"
-          v-model="form.email"
-        />
-      </div>
+    <!-- Ambient Glowing Orbs -->
+    <div class="absolute top-1/4 left-1/4 w-[300px] h-[300px] bg-[#42b883]/5 blur-[100px] rounded-full pointer-events-none"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] bg-[#35495e]/10 blur-[120px] rounded-full pointer-events-none"></div>
 
-      <!-- Password -->
-      <div class="mb-6">
-        <label for="password" class="block text-green-500 mb-2">Password</label>
-        <input
-          type="password"
-          id="password"
-          class="w-full px-3 py-2 border border-gray-300 rounded-lg text-green-500
-                 focus:outline-none focus:ring-2 focus:ring-green-500"
-          placeholder="Enter your password"
-          v-model="form.password"
-        />
-      </div>
-
-      <!-- Submit -->
-      <button
-        type="submit"
-        class="w-full bg-green-600 text-white py-2 rounded-lg 
-               hover:bg-green-700 transition-colors shadow-md"
-        :disabled="loading"
+    <!-- Main Container -->
+    <div class="relative w-full max-w-md z-10">
+      <!-- Back to Home Button -->
+      <router-link 
+        to="/" 
+        class="absolute -top-12 left-0 flex items-center gap-1.5 text-xs font-mono text-slate-500 hover:text-[#42b883] transition-colors duration-200 group"
       >
-        Sign In
-      </button>
-      <div v-if="loading" class="mt-4 text-center text-green-500">
-        Logging in...
+        <span class="inline-block transition-transform duration-200 group-hover:-translate-x-1">&lt;-</span> BACK_TO_BASE
+      </router-link>
+
+      <!-- Cyber Card -->
+      <div class="relative bg-slate-900/80 backdrop-blur-xl border border-slate-800 rounded-xl p-8 shadow-[0_0_30px_rgba(0,0,0,0.5)] overflow-hidden">
+        <!-- Top Tech Bar accent -->
+        <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#42b883] to-transparent"></div>
+        
+        <!-- Corner Tech Decors -->
+        <div class="absolute top-2 right-2 font-mono text-[8px] text-slate-700 select-none">SECURE_NODE_v1.0.4</div>
+        <div class="absolute bottom-2 right-4 font-mono text-[8px] text-slate-700 select-none">//R-SYS-STABLE</div>
+
+        <!-- Header -->
+        <div class="text-center mb-8">
+          <div class="relative inline-block mb-3">
+            <!-- Glowing Ring around Logo -->
+            <div class="absolute inset-0 bg-[#42b883]/20 blur-md rounded-full"></div>
+            <Icon icon="logos:vue" width="56" height="56" class="relative z-10 filter drop-shadow-[0_0_6px_rgba(66,184,131,0.4)]" />
+          </div>
+          <h2 class="text-2xl font-bold font-mono tracking-widest text-white uppercase">
+            SYS_AUTHENTICATION
+          </h2>
+          <p class="text-xs font-mono text-slate-500 mt-1 uppercase">// ACCESS_PORTAL</p>
+        </div>
+
+        <!-- Form -->
+        <form @submit.prevent="childSubmit" class="space-y-5">
+          <!-- Email Input -->
+          <div>
+            <label for="email" class="block text-xs font-bold font-mono uppercase text-slate-400 mb-2 tracking-wider flex justify-between">
+              <span>EMAIL_ADDRESS</span>
+              <span class="text-slate-600">//INPUT_01</span>
+            </label>
+            <div class="relative group">
+              <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-xs font-mono text-slate-500 group-focus-within:text-[#42b883] transition-colors">@</span>
+              <input
+                type="email"
+                id="email"
+                required
+                class="w-full pl-9 pr-4 py-3 bg-slate-950/80 border border-slate-800 rounded-lg text-slate-100 font-mono text-sm placeholder-slate-700 focus:outline-none focus:border-[#42b883] focus:shadow-[0_0_15px_rgba(66,184,131,0.15)] transition-all duration-300"
+                placeholder="identity@netspace.com"
+                v-model="form.email"
+              />
+            </div>
+          </div>
+
+          <!-- Password Input -->
+          <div>
+            <label for="password" class="block text-xs font-bold font-mono uppercase text-slate-400 mb-2 tracking-wider flex justify-between">
+              <span>SECURITY_KEY</span>
+              <span class="text-slate-600">//INPUT_02</span>
+            </label>
+            <div class="relative group">
+              <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-xs font-mono text-slate-500 group-focus-within:text-[#42b883] transition-colors">***</span>
+              <input
+                type="password"
+                id="password"
+                required
+                class="w-full pl-12 pr-4 py-3 bg-slate-950/80 border border-slate-800 rounded-lg text-slate-100 font-mono text-sm placeholder-slate-700 focus:outline-none focus:border-[#42b883] focus:shadow-[0_0_15px_rgba(66,184,131,0.15)] transition-all duration-300"
+                placeholder="••••••••"
+                v-model="form.password"
+              />
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="pt-2">
+            <button
+              type="submit"
+              class="w-full relative group overflow-hidden bg-gradient-to-r from-[#42b883] to-[#35495e] text-slate-950 font-bold font-mono text-sm uppercase py-3 rounded-lg hover:shadow-[0_0_20px_rgba(66,184,131,0.4)] transition-all duration-300 flex items-center justify-center gap-2"
+              :disabled="loading"
+            >
+              <!-- Sparkle Effect -->
+              <span class="absolute inset-0 bg-white/20 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out"></span>
+              
+              <Icon v-if="loading" icon="line-md:loading-twotone-loop" class="text-slate-950" />
+              <span>{{ loading ? 'INITIALIZING_SESSION...' : 'INITIATE_LOGIN' }}</span>
+            </button>
+          </div>
+        </form>
+
+        <!-- Status Alerts -->
+        <div 
+          v-if="error" 
+          class="mt-5 p-3.5 bg-red-950/30 border border-red-500/30 rounded-lg text-xs font-mono text-red-400 flex gap-2.5 items-start"
+        >
+          <Icon icon="lucide:alert-triangle" class="text-red-500 mt-0.5 shrink-0" />
+          <div>
+            <div class="font-bold uppercase mb-0.5">AUTH_FAILURE</div>
+            <div>{{ error.message || error }}</div>
+          </div>
+        </div>
+
+        <!-- Footer Link -->
+        <p class="mt-8 text-center text-xs font-mono text-slate-500 uppercase">
+          New system user? 
+          <router-link to="/signup" class="text-[#42b883] hover:underline hover:text-[#42b883]/80 transition-colors">// REGISTER_ID</router-link>
+        </p>
       </div>
-      <div v-if="error" class="mt-4 text-center text-red-500">
-        {{ error.message }}
-      </div>
-      <p class="mt-4 text-center text-gray-600">
-        Don't have an account? <router-link to="/signup" class="text-green-500">Sign Up</router-link>
-      </p>
-    </form>
+    </div>
   </section>
 </template>
